@@ -6,20 +6,23 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Nesdavaysya DCA" />
-  <meta name="theme-color" content="#090D16" />
+  <meta name="theme-color" content="#070B14" />
   <title>Nesdavaysya DCA</title>
   <link id="apple-icon" rel="apple-touch-icon" href="" />
   <link id="fav-icon" rel="icon" type="image/png" href="" />
   <style>
     :root {
-      --bg: #090D16;
-      --surface: #121826;
-      --surface-2: #1A2234;
-      --border: #263147;
+      --bg: #070B14;
+      --surface: rgba(17, 24, 39, 0.78);
+      --surface-solid: #111827;
+      --surface-2: rgba(30, 41, 59, 0.65);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.16);
       --text: #F8FAFC;
       --muted: #94A3B8;
-      --accent: #6366F1;
-      --accent-2: #06B6D4;
+      --indigo: #6366F1;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
       --green: #10B981;
       --red: #F43F5E;
       --safe-top: env(safe-area-inset-top, 20px);
@@ -37,13 +40,16 @@
     body {
       background-color: var(--bg);
       background-image:
-        radial-gradient(circle at 10% 0%, rgba(99, 102, 241, 0.16), transparent 42%),
-        radial-gradient(circle at 90% 12%, rgba(6, 182, 212, 0.14), transparent 38%);
+        radial-gradient(circle at 8% -4%, rgba(99, 102, 241, 0.24), transparent 42%),
+        radial-gradient(circle at 92% 8%, rgba(6, 182, 212, 0.18), transparent 40%),
+        radial-gradient(circle at 50% 95%, rgba(236, 72, 153, 0.12), transparent 45%);
+      background-attachment: fixed;
       color: var(--text);
       min-height: 100vh;
-      padding-top: calc(var(--safe-top) + 12px);
-      padding-bottom: calc(var(--safe-bottom) + 88px);
+      padding-top: calc(var(--safe-top) + 14px);
+      padding-bottom: calc(var(--safe-bottom) + 96px);
       overflow-x: hidden;
+      font-variant-numeric: tabular-nums;
     }
 
     .container {
@@ -57,31 +63,32 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
+      gap: 12px;
     }
 
     .brand-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #F7931A 0%, #EC4899 55%, #6366F1 100%);
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #F7931A 0%, #EC4899 52%, #6366F1 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+      box-shadow: 0 8px 22px rgba(236, 72, 153, 0.32);
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     .brand-name {
       font-size: 18px;
       font-weight: 800;
-      letter-spacing: -0.3px;
-      background: linear-gradient(90deg, #FFFFFF, #CBD5E1);
+      letter-spacing: -0.4px;
+      background: linear-gradient(90deg, #FFFFFF 0%, #E2E8F0 60%, #7DD3FC 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -90,82 +97,129 @@
       font-size: 11px;
       color: #38BDF8;
       font-weight: 600;
+      letter-spacing: 0.2px;
     }
 
     .top-add-btn {
-      background: linear-gradient(135deg, #6366F1, #06B6D4);
-      border: none;
+      background: linear-gradient(135deg, #6366F1 0%, #06B6D4 100%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: #FFFFFF;
-      padding: 9px 14px;
-      border-radius: 11px;
+      padding: 10px 15px;
+      border-radius: 13px;
       font-size: 12.5px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.28);
+      box-shadow: 0 6px 18px rgba(6, 182, 212, 0.3);
+      transition: transform 0.12s ease;
     }
 
-    /* CARDS */
+    .top-add-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* GLASS CARDS */
     .card {
       background: var(--surface);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 22px;
       padding: 18px;
       margin-bottom: 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
     }
 
+    /* HERO PORTFOLIO CARD */
     .hero-card {
-      background: linear-gradient(135deg, #1E1B4B 0%, #172554 52%, #0F2942 100%);
-      border: 1px solid rgba(99, 102, 241, 0.45);
+      background: linear-gradient(135deg, rgba(49, 46, 129, 0.92) 0%, rgba(30, 58, 138, 0.88) 48%, rgba(14, 116, 144, 0.85) 100%);
+      border: 1px solid rgba(129, 140, 248, 0.45);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.55);
+      box-shadow: 0 18px 38px rgba(30, 27, 75, 0.55);
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      right: -50px;
+      top: -60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.38), transparent 70%);
+      pointer-events: none;
     }
 
     .hero-card::after {
       content: "";
       position: absolute;
-      width: 150px;
-      height: 150px;
-      right: -35px;
-      top: -45px;
+      width: 140px;
+      height: 140px;
+      left: -40px;
+      bottom: -55px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.28), transparent 70%);
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.28), transparent 70%);
       pointer-events: none;
+    }
+
+    .hero-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .hero-label {
       font-size: 11.5px;
-      color: #A5B4FC;
+      color: #C7D2FE;
       text-transform: uppercase;
-      letter-spacing: 0.7px;
+      letter-spacing: 0.8px;
       font-weight: 700;
     }
 
+    .vault-chip {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #6EE7B7;
+      background: rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
     .hero-total {
-      font-size: 32px;
+      font-size: 33px;
       font-weight: 800;
-      margin: 6px 0 16px;
-      letter-spacing: -0.7px;
+      margin: 8px 0 16px;
+      letter-spacing: -0.8px;
       color: #FFFFFF;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
     }
 
     .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      padding-top: 13px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      position: relative;
+      z-index: 1;
     }
 
-    .stat-item span {
+    .stat-box {
+      background: rgba(15, 23, 42, 0.38);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 13px;
+      padding: 9px 10px;
+    }
+
+    .stat-box span {
       display: block;
-      font-size: 10.5px;
-      color: #93C5FD;
+      font-size: 10px;
+      color: #BAE6FD;
       margin-bottom: 2px;
+      font-weight: 600;
     }
 
-    .stat-item strong {
-      font-size: 13.5px;
+    .stat-box strong {
+      font-size: 13px;
       font-weight: 700;
       color: #FFFFFF;
     }
@@ -177,18 +231,47 @@
       gap: 18px;
     }
 
+    .donut-holder {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      flex-shrink: 0;
+    }
+
+    .donut-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .donut-center span {
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .donut-center strong {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
     .legend-list {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 9px;
     }
 
     .legend-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 13px;
+      font-size: 12.5px;
     }
 
     .legend-left {
@@ -201,7 +284,7 @@
     .dot {
       width: 10px;
       height: 10px;
-      border-radius: 3px;
+      border-radius: 4px;
       flex-shrink: 0;
     }
 
@@ -210,28 +293,32 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 18px 0 10px;
+      margin: 20px 0 11px;
     }
 
     .section-title {
       font-size: 15.5px;
       font-weight: 700;
+      letter-spacing: -0.2px;
     }
 
     .asset-card {
       background: var(--surface);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 15px;
-      margin-bottom: 11px;
-      transition: border-color 0.2s;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
     }
 
     .asset-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 11px;
+      margin-bottom: 12px;
     }
 
     .coin-badge {
@@ -241,16 +328,17 @@
     }
 
     .coin-avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 13px;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       font-size: 13px;
       color: #FFFFFF;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.28);
       flex-shrink: 0;
     }
 
@@ -263,12 +351,12 @@
     }
 
     .ticker-tag {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       padding: 2px 7px;
       border-radius: 6px;
-      background: rgba(255,255,255,0.08);
-      color: #CBD5E1;
+      background: rgba(255, 255, 255, 0.09);
+      color: #E2E8F0;
     }
 
     .coin-sub {
@@ -278,66 +366,86 @@
     }
 
     .quick-dca-btn {
-      background: rgba(16, 185, 129, 0.14);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2));
       color: #34D399;
-      border: 1px solid rgba(16, 185, 129, 0.35);
+      border: 1px solid rgba(52, 211, 153, 0.4);
       padding: 7px 12px;
-      border-radius: 10px;
+      border-radius: 11px;
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
+    }
+
+    .quick-dca-btn:active {
+      transform: scale(0.95);
     }
 
     .asset-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      background: var(--surface-2);
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       padding: 10px 12px;
-      border-radius: 12px;
+      border-radius: 13px;
     }
 
     .asset-metric span {
       display: block;
-      font-size: 10.5px;
+      font-size: 10px;
       color: var(--muted);
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .asset-metric strong {
       font-size: 12.5px;
       font-weight: 700;
-      color: #F1F5F9;
+      color: #F8FAFC;
+    }
+
+    .alloc-bar-bg {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 4px;
+      margin-top: 11px;
+      overflow: hidden;
+    }
+
+    .alloc-bar-fill {
+      height: 100%;
+      border-radius: 4px;
     }
 
     /* FORMS */
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
 
     .form-label {
       display: block;
       font-size: 12.5px;
       font-weight: 600;
-      color: var(--muted);
+      color: #CBD5E1;
       margin-bottom: 7px;
     }
 
     .input-box {
       width: 100%;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 13px;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
       padding: 13px 14px;
       color: var(--text);
       font-size: 16px;
       font-weight: 600;
       outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
 
     .input-box:focus {
-      border-color: var(--accent-2);
-      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+      border-color: #38BDF8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
     }
 
     .autocorrect-preview {
@@ -345,12 +453,12 @@
       display: none;
       align-items: center;
       gap: 8px;
-      background: rgba(99, 102, 241, 0.14);
-      border: 1px solid rgba(99, 102, 241, 0.35);
+      background: rgba(99, 102, 241, 0.16);
+      border: 1px solid rgba(129, 140, 248, 0.35);
       padding: 8px 12px;
-      border-radius: 10px;
+      border-radius: 11px;
       font-size: 12.5px;
-      color: #C7D2FE;
+      color: #E0E7FF;
     }
 
     .pill-wrap {
@@ -361,47 +469,73 @@
     }
 
     .pill {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--border-strong);
       color: var(--text);
-      padding: 7px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 700;
       cursor: pointer;
+      transition: transform 0.1s;
     }
 
     .pill:active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #FFFFFF;
+      transform: scale(0.95);
+    }
+
+    .nominal-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .pill-minus {
+      background: rgba(244, 63, 94, 0.14);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      color: #FDA4AF;
+      text-align: center;
+      padding: 9px 4px;
+    }
+
+    .pill-plus {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.38);
+      color: #6EE7B7;
+      text-align: center;
+      padding: 9px 4px;
     }
 
     .btn-primary {
       width: 100%;
       background: linear-gradient(135deg, #6366F1 0%, #3B82F6 50%, #06B6D4 100%);
       color: #FFFFFF;
-      border: none;
-      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 15px;
       padding: 15px;
       font-size: 15px;
       font-weight: 800;
       cursor: pointer;
       margin-top: 6px;
-      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 10px 24px rgba(59, 130, 246, 0.35);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
     }
 
     .btn-secondary {
       width: 100%;
-      background: var(--surface-2);
+      background: rgba(30, 41, 59, 0.78);
       color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
+      border: 1px solid var(--border-strong);
+      border-radius: 13px;
+      padding: 13px;
       font-size: 13.5px;
       font-weight: 600;
       cursor: pointer;
-      margin-bottom: 8px;
+      margin-bottom: 9px;
     }
 
     /* HISTORY */
@@ -418,30 +552,41 @@
     }
 
     .del-btn {
-      background: rgba(244, 63, 94, 0.14);
-      color: #FB7185;
-      border: none;
+      background: rgba(244, 63, 94, 0.16);
+      color: #FDA4AF;
+      border: 1px solid rgba(244, 63, 94, 0.3);
       padding: 6px 10px;
-      border-radius: 8px;
+      border-radius: 9px;
       font-size: 11px;
       font-weight: 700;
       cursor: pointer;
     }
 
-    /* BOTTOM NAV */
-    .bottom-nav {
+    /* FLOATING GLASS BOTTOM NAV */
+    .bottom-nav-wrap {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(18, 24, 38, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-top: 1px solid var(--border);
+      bottom: calc(var(--safe-bottom) + 10px);
+      left: 16px;
+      right: 16px;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .bottom-nav {
+      width: 100%;
+      max-width: 448px;
+      background: rgba(15, 23, 42, 0.86);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 22px;
       display: flex;
       justify-content: space-around;
-      padding: 10px 8px calc(var(--safe-bottom) + 8px);
-      z-index: 100;
+      padding: 8px 6px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+      pointer-events: auto;
     }
 
     .nav-item {
@@ -453,13 +598,18 @@
       align-items: center;
       gap: 4px;
       font-size: 11px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       flex: 1;
+      padding: 6px 4px;
+      border-radius: 14px;
+      transition: all 0.18s ease;
     }
 
     .nav-item.active {
-      color: #38BDF8;
+      color: #FFFFFF;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(6, 182, 212, 0.3));
+      box-shadow: inset 0 0 0 1px rgba(125, 211, 252, 0.3);
     }
 
     .tab-pane {
@@ -468,6 +618,12 @@
 
     .tab-pane.active {
       display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .toast {
@@ -482,7 +638,7 @@
       font-size: 13px;
       font-weight: 700;
       z-index: 10000;
-      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
+      box-shadow: 0 10px 24px rgba(16, 185, 129, 0.4);
       display: none;
     }
 
@@ -492,9 +648,10 @@
       gap: 6px;
       font-size: 11.5px;
       color: #34D399;
-      background: rgba(16, 185, 129, 0.14);
-      padding: 5px 10px;
-      border-radius: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 11px;
+      border-radius: 10px;
       margin-bottom: 12px;
       font-weight: 600;
     }
@@ -510,13 +667,13 @@
     <div class="topbar">
       <div class="brand">
         <div class="brand-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="#FFFFFF">
             <path d="M14.24 10.56c.31-.68.42-1.56-.17-2.42-.52-.75-1.46-1.15-2.67-1.26V5h-1.3v1.83c-.34 0-.69.01-1.04.02V5H7.76v1.88H5.5v1.39h.95c.46 0 .64.23.69.53v6.37c-.04.25-.2.46-.57.46H5.5v1.52h2.26V19h1.3v-1.82c.35.01.7.01 1.04.01V19h1.3v-1.85c2.16-.14 3.63-.74 3.84-2.69.16-1.52-.56-2.25-1.69-2.55.72-.35 1.19-.94 1.19-1.35zm-4.13-2.34c.96 0 2.02.27 2.02 1.29 0 1.05-1.08 1.33-2.02 1.33H9.07V8.22h1.04zm.36 7.45H9.07v-2.9h1.45c1.14 0 2.34.3 2.34 1.46 0 1.18-1.16 1.44-2.39 1.44z"/>
           </svg>
         </div>
         <div>
           <div class="brand-name">Nesdavaysya DCA</div>
-          <div class="brand-tag">Crypto Portfolio Tracker</div>
+          <div class="brand-tag">Multi-Year Crypto Vault</div>
         </div>
       </div>
       <button class="top-add-btn" onclick="switchTab('add')">+ Catat DCA</button>
@@ -525,18 +682,21 @@
     <!-- TAB 1: PORTFOLIO -->
     <div id="tab-dashboard" class="tab-pane active">
       <div class="card hero-card">
-        <div class="hero-label">Total Modal DCA Terkumpul</div>
+        <div class="hero-top-row">
+          <div class="hero-label">Total Modal DCA</div>
+          <div class="vault-chip">● Local Vault</div>
+        </div>
         <div id="total-idr" class="hero-total">Rp 0</div>
         <div class="hero-stats">
-          <div class="stat-item">
+          <div class="stat-box">
             <span>Total Aset</span>
             <strong id="total-coins">0 Koin</strong>
           </div>
-          <div class="stat-item">
+          <div class="stat-box">
             <span>Frekuensi</span>
             <strong id="total-tx">0x Beli</strong>
           </div>
-          <div class="stat-item">
+          <div class="stat-box">
             <span>Rata-rata / Beli</span>
             <strong id="avg-per-tx">Rp 0</strong>
           </div>
@@ -544,9 +704,15 @@
       </div>
 
       <div id="chart-card" class="card" style="display:none;">
-        <div class="section-title" style="margin-bottom:12px;">Komposisi Portofolio</div>
+        <div class="section-title" style="margin-bottom:14px;">Komposisi Portofolio</div>
         <div class="chart-wrap">
-          <svg id="donut-svg" width="118" height="118" viewBox="0 0 120 120"></svg>
+          <div class="donut-holder">
+            <svg id="donut-svg" width="120" height="120" viewBox="0 0 120 120"></svg>
+            <div class="donut-center">
+              <span>Aset</span>
+              <strong id="donut-count">0</strong>
+            </div>
+          </div>
           <div id="chart-legend" class="legend-list"></div>
         </div>
       </div>
@@ -561,48 +727,54 @@
     <!-- TAB 2: ADD DCA -->
     <div id="tab-add" class="tab-pane">
       <div class="card">
-        <div class="section-title" style="margin-bottom:14px;">Catat Pembelian DCA Baru</div>
+        <div class="section-title" style="margin-bottom:15px;">Catat Pembelian DCA</div>
 
         <div id="existing-coins-wrap" class="form-group" style="display:none;">
-          <label class="form-label">Koin yang Sudah Kamu Miliki (Ketuk untuk tambah DCA):</label>
+          <label class="form-label">Koin yang Sudah Kamu Miliki (Ketuk untuk tambah):</label>
           <div id="existing-coin-pills" class="pill-wrap"></div>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Ketik Nama / Kode Kripto (otomatis koreksi ke nama resmi)</label>
+          <label class="form-label">Nama / Kode Kripto</label>
           <input
             type="text"
             id="input-coin"
             class="input-box"
-            placeholder="Ketik btc, eth, sol, sui..."
+            placeholder="Ketik kode atau nama koin..."
             oninput="handleCoinTyping(this.value)"
             onblur="applyCoinAutocorrect()"
           />
           <div id="autocorrect-preview" class="autocorrect-preview"></div>
-          <div class="pill-wrap" style="margin-top:9px; margin-bottom:0;">
-            <button type="button" class="pill" onclick="pickSuggestedCoin('BTC')">Bitcoin (BTC)</button>
-            <button type="button" class="pill" onclick="pickSuggestedCoin('ETH')">Ethereum (ETH)</button>
-            <button type="button" class="pill" onclick="pickSuggestedCoin('SOL')">Solana (SOL)</button>
-            <button type="button" class="pill" onclick="pickSuggestedCoin('SUI')">Sui (SUI)</button>
-            <button type="button" class="pill" onclick="pickSuggestedCoin('XRP')">Ripple (XRP)</button>
-            <button type="button" class="pill" onclick="pickSuggestedCoin('BNB')">BNB</button>
-          </div>
         </div>
 
         <div class="form-group">
           <label class="form-label">Nominal Investasi (IDR)</label>
-          <div class="pill-wrap">
-            <button type="button" class="pill" onclick="addNominal(100000)">+100rb</button>
-            <button type="button" class="pill" onclick="addNominal(250000)">+250rb</button>
-            <button type="button" class="pill" onclick="addNominal(500000)">+500rb</button>
-            <button type="button" class="pill" onclick="addNominal(1000000)">+1jt</button>
+          <div class="nominal-grid">
+            <button type="button" class="pill pill-minus" onclick="adjustNominal(-500000)">-500rb</button>
+            <button type="button" class="pill pill-minus" onclick="adjustNominal(-100000)">-100rb</button>
+            <button type="button" class="pill pill-plus" onclick="adjustNominal(100000)">+100rb</button>
+            <button type="button" class="pill pill-plus" onclick="adjustNominal(500000)">+500rb</button>
           </div>
-          <input type="text" id="input-idr" class="input-box" inputmode="numeric" placeholder="500.000" oninput="formatIdrInput(this)" />
+          <input
+            type="text"
+            id="input-idr"
+            class="input-box"
+            inputmode="numeric"
+            placeholder="500.000"
+            oninput="formatIdrInput(this)"
+          />
         </div>
 
         <div class="form-group">
-          <label class="form-label">Jumlah Koin Didapat (Opsional — untuk hitung Avg Price)</label>
-          <input type="number" id="input-qty" class="input-box" step="any" inputmode="decimal" placeholder="Contoh: 0.00045" />
+          <label class="form-label">Jumlah Koin Didapat (Opsional — pakai koma, contoh: 0,00045)</label>
+          <input
+            type="text"
+            id="input-qty"
+            class="input-box"
+            inputmode="decimal"
+            placeholder="0,00045"
+            oninput="sanitizeDecimalInput(this)"
+          />
         </div>
 
         <div class="form-group">
@@ -622,10 +794,10 @@
     <!-- TAB 3: HISTORY & BACKUP -->
     <div id="tab-history" class="tab-pane">
       <div class="card">
-        <div class="section-title" style="margin-bottom:8px;">Penyimpanan Lokal Permanen</div>
-        <div id="storage-status" class="status-pill">● Tersimpan Lokal & Aman di iPhone</div>
-        <p style="font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:14px;">
-          Semua data 100% tersimpan lokal di perangkatmu (tidak dikirim ke server mana pun). Gunakan tombol di bawah untuk menyimpan salinan cadangan jika berganti HP.
+        <div class="section-title" style="margin-bottom:8px;">Penyimpanan Lokal Multi-Tahun</div>
+        <div id="storage-status" class="status-pill">● Tersimpan Lokal & Permanen di iPhone</div>
+        <p style="font-size:12.5px; color:var(--muted); line-height:1.55; margin-bottom:14px;">
+          Seluruh data disimpan ganda di memori internal Safari (localStorage + IndexedDB) tanpa batas waktu. Gunakan fitur backup JSON di bawah jika berencana berganti HP.
         </p>
         <button class="btn-secondary" onclick="exportBackup()">⬇️ Download Backup Data (JSON)</button>
         <button class="btn-secondary" onclick="document.getElementById('import-file').click()" style="margin-bottom:0;">⬆️ Pulihkan Data dari Backup</button>
@@ -634,7 +806,7 @@
 
       <div class="section-header">
         <div class="section-title">Riwayat Transaksi DCA</div>
-        <select id="filter-coin" onchange="renderHistory()" style="background:var(--surface); color:var(--text); border:1px solid var(--border); padding:6px 10px; border-radius:8px; font-size:12px;">
+        <select id="filter-coin" onchange="renderHistory()" style="background:var(--surface-solid); color:var(--text); border:1px solid var(--border-strong); padding:6px 10px; border-radius:10px; font-size:12px;">
           <option value="ALL">Semua Koin</option>
         </select>
       </div>
@@ -642,53 +814,56 @@
     </div>
   </div>
 
-  <!-- BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
-    <button id="nav-dashboard" class="nav-item active" onclick="switchTab('dashboard')">
-      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-      <span>Portofolio</span>
-    </button>
-    <button id="nav-add" class="nav-item" onclick="switchTab('add')">
-      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
-      <span>Tambah DCA</span>
-    </button>
-    <button id="nav-history" class="nav-item" onclick="switchTab('history')">
-      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      <span>Riwayat & Backup</span>
-    </button>
-  </nav>
+  <!-- FLOATING GLASS BOTTOM NAVIGATION -->
+  <div class="bottom-nav-wrap">
+    <nav class="bottom-nav">
+      <button id="nav-dashboard" class="nav-item active" onclick="switchTab('dashboard')">
+        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        <span>Portofolio</span>
+      </button>
+      <button id="nav-add" class="nav-item" onclick="switchTab('add')">
+        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+        <span>Tambah DCA</span>
+      </button>
+      <button id="nav-history" class="nav-item" onclick="switchTab('history')">
+        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Riwayat & Backup</span>
+      </button>
+    </nav>
+  </div>
 
   <script>
+    // KUNCI PENYIMPANAN TETAP SAMA AGAR DATA LAMA AMAN & BERLANJUT MULTI-TAHUN
     const STORAGE_KEY = 'nesdavaysya_dca_entries_v1';
     const DB_NAME = 'NesdavaysyaDCADB';
     const STORE_NAME = 'vault';
 
-    // DICTIONARY UNTUK AUTO-CORRECT & WARNA KHAS TIAP KOIN
+    // KATALOG AUTO-CORRECT & WARNA KHAS KOIN
     const COIN_CATALOG = {
-      BTC:    { symbol: 'BTC',    name: 'Bitcoin',      color: '#F7931A', grad: 'linear-gradient(135deg, #F7931A, #EA580C)' },
-      ETH:    { symbol: 'ETH',    name: 'Ethereum',     color: '#6366F1', grad: 'linear-gradient(135deg, #6366F1, #8B5CF6)' },
-      SOL:    { symbol: 'SOL',    name: 'Solana',       color: '#14F195', grad: 'linear-gradient(135deg, #9945FF, #14F195)' },
-      BNB:    { symbol: 'BNB',    name: 'BNB',          color: '#F3BA2F', grad: 'linear-gradient(135deg, #F3BA2F, #D97706)' },
-      XRP:    { symbol: 'XRP',    name: 'Ripple',       color: '#0EA5E9', grad: 'linear-gradient(135deg, #0284C7, #38BDF8)' },
-      ADA:    { symbol: 'ADA',    name: 'Cardano',      color: '#3B82F6', grad: 'linear-gradient(135deg, #1D4ED8, #3B82F6)' },
-      DOGE:   { symbol: 'DOGE',   name: 'Dogecoin',     color: '#EAB308', grad: 'linear-gradient(135deg, #EAB308, #CA8A04)' },
-      SUI:    { symbol: 'SUI',    name: 'Sui',          color: '#06B6D4', grad: 'linear-gradient(135deg, #0891B2, #22D3EE)' },
-      TON:    { symbol: 'TON',    name: 'Toncoin',      color: '#0098EA', grad: 'linear-gradient(135deg, #0284C7, #0098EA)' },
-      AVAX:   { symbol: 'AVAX',   name: 'Avalanche',    color: '#EF4444', grad: 'linear-gradient(135deg, #DC2626, #F87171)' },
-      LINK:   { symbol: 'LINK',   name: 'Chainlink',    color: '#2563EB', grad: 'linear-gradient(135deg, #1E40AF, #3B82F6)' },
-      DOT:    { symbol: 'DOT',    name: 'Polkadot',     color: '#EC4899', grad: 'linear-gradient(135deg, #DB2777, #F472B6)' },
-      POL:    { symbol: 'POL',    name: 'Polygon',      color: '#8B5CF6', grad: 'linear-gradient(135deg, #7C3AED, #A78BFA)' },
-      MATIC:  { symbol: 'POL',    name: 'Polygon',      color: '#8B5CF6', grad: 'linear-gradient(135deg, #7C3AED, #A78BFA)' },
-      NEAR:   { symbol: 'NEAR',   name: 'NEAR Protocol',color: '#10B981', grad: 'linear-gradient(135deg, #059669, #34D399)' },
-      ARB:    { symbol: 'ARB',    name: 'Arbitrum',     color: '#38BDF8', grad: 'linear-gradient(135deg, #1E3A8A, #38BDF8)' },
-      OP:     { symbol: 'OP',     name: 'Optimism',     color: '#F43F5E', grad: 'linear-gradient(135deg, #E11D48, #FB7185)' },
-      PEPE:   { symbol: 'PEPE',   name: 'Pepe',         color: '#22C55E', grad: 'linear-gradient(135deg, #15803D, #4ADE80)' },
-      SHIB:   { symbol: 'SHIB',   name: 'Shiba Inu',    color: '#F97316', grad: 'linear-gradient(135deg, #EA580C, #FB923C)' },
-      RENDER: { symbol: 'RENDER', name: 'Render',       color: '#F43F5E', grad: 'linear-gradient(135deg, #BE123C, #F43F5E)' },
-      FET:    { symbol: 'FET',    name: 'Fetch.ai',     color: '#6366F1', grad: 'linear-gradient(135deg, #312E81, #6366F1)' },
-      HYPE:   { symbol: 'HYPE',   name: 'Hyperliquid',  color: '#2DD4BF', grad: 'linear-gradient(135deg, #0F766E, #2DD4BF)' },
-      USDT:   { symbol: 'USDT',   name: 'Tether',       color: '#10B981', grad: 'linear-gradient(135deg, #047857, #10B981)' },
-      USDC:   { symbol: 'USDC',   name: 'USD Coin',     color: '#2563EB', grad: 'linear-gradient(135deg, #1D4ED8, #60A5FA)' }
+      BTC:    { symbol: 'BTC',    name: 'Bitcoin',       color: '#F7931A', grad: 'linear-gradient(135deg, #F7931A, #EA580C)' },
+      ETH:    { symbol: 'ETH',    name: 'Ethereum',      color: '#6366F1', grad: 'linear-gradient(135deg, #6366F1, #8B5CF6)' },
+      SOL:    { symbol: 'SOL',    name: 'Solana',        color: '#14F195', grad: 'linear-gradient(135deg, #9945FF, #14F195)' },
+      BNB:    { symbol: 'BNB',    name: 'BNB',           color: '#F3BA2F', grad: 'linear-gradient(135deg, #F3BA2F, #D97706)' },
+      XRP:    { symbol: 'XRP',    name: 'Ripple',        color: '#0EA5E9', grad: 'linear-gradient(135deg, #0284C7, #38BDF8)' },
+      ADA:    { symbol: 'ADA',    name: 'Cardano',       color: '#3B82F6', grad: 'linear-gradient(135deg, #1D4ED8, #3B82F6)' },
+      DOGE:   { symbol: 'DOGE',   name: 'Dogecoin',      color: '#EAB308', grad: 'linear-gradient(135deg, #EAB308, #CA8A04)' },
+      SUI:    { symbol: 'SUI',    name: 'Sui',           color: '#06B6D4', grad: 'linear-gradient(135deg, #0891B2, #22D3EE)' },
+      TON:    { symbol: 'TON',    name: 'Toncoin',       color: '#0098EA', grad: 'linear-gradient(135deg, #0284C7, #0098EA)' },
+      AVAX:   { symbol: 'AVAX',   name: 'Avalanche',     color: '#EF4444', grad: 'linear-gradient(135deg, #DC2626, #F87171)' },
+      LINK:   { symbol: 'LINK',   name: 'Chainlink',     color: '#2563EB', grad: 'linear-gradient(135deg, #1E40AF, #3B82F6)' },
+      DOT:    { symbol: 'DOT',    name: 'Polkadot',      color: '#EC4899', grad: 'linear-gradient(135deg, #DB2777, #F472B6)' },
+      POL:    { symbol: 'POL',    name: 'Polygon',       color: '#8B5CF6', grad: 'linear-gradient(135deg, #7C3AED, #A78BFA)' },
+      MATIC:  { symbol: 'POL',    name: 'Polygon',       color: '#8B5CF6', grad: 'linear-gradient(135deg, #7C3AED, #A78BFA)' },
+      NEAR:   { symbol: 'NEAR',   name: 'NEAR Protocol', color: '#10B981', grad: 'linear-gradient(135deg, #059669, #34D399)' },
+      ARB:    { symbol: 'ARB',    name: 'Arbitrum',      color: '#38BDF8', grad: 'linear-gradient(135deg, #1E3A8A, #38BDF8)' },
+      OP:     { symbol: 'OP',     name: 'Optimism',      color: '#F43F5E', grad: 'linear-gradient(135deg, #E11D48, #FB7185)' },
+      PEPE:   { symbol: 'PEPE',   name: 'Pepe',          color: '#22C55E', grad: 'linear-gradient(135deg, #15803D, #4ADE80)' },
+      SHIB:   { symbol: 'SHIB',   name: 'Shiba Inu',     color: '#F97316', grad: 'linear-gradient(135deg, #EA580C, #FB923C)' },
+      RENDER: { symbol: 'RENDER', name: 'Render',        color: '#F43F5E', grad: 'linear-gradient(135deg, #BE123C, #F43F5E)' },
+      FET:    { symbol: 'FET',    name: 'Fetch.ai',      color: '#6366F1', grad: 'linear-gradient(135deg, #312E81, #6366F1)' },
+      HYPE:   { symbol: 'HYPE',   name: 'Hyperliquid',   color: '#2DD4BF', grad: 'linear-gradient(135deg, #0F766E, #2DD4BF)' },
+      USDT:   { symbol: 'USDT',   name: 'Tether',        color: '#10B981', grad: 'linear-gradient(135deg, #047857, #10B981)' },
+      USDC:   { symbol: 'USDC',   name: 'USD Coin',      color: '#2563EB', grad: 'linear-gradient(135deg, #1D4ED8, #60A5FA)' }
     };
 
     const CUSTOM_PALETTE = [
@@ -705,7 +880,6 @@
       const cleaned = (raw || '').trim();
       if (!cleaned) return null;
 
-      // Cek jika format sudah "Bitcoin (BTC)"
       const parenMatch = cleaned.match(/\(([A-Za-z0-9]+)\)$/);
       const lookupKey = (parenMatch ? parenMatch[1] : cleaned).toUpperCase();
 
@@ -713,13 +887,11 @@
         return COIN_CATALOG[lookupKey];
       }
 
-      // Cek berdasarkan nama lengkap (misal user ketik "bitcoin" atau "solana")
       const byName = Object.values(COIN_CATALOG).find(
         c => c.name.toLowerCase() === cleaned.toLowerCase()
       );
       if (byName) return byName;
 
-      // Koin kustom di luar katalog
       const hash = lookupKey.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
       const style = CUSTOM_PALETTE[hash % CUSTOM_PALETTE.length];
       return {
@@ -737,14 +909,12 @@
       canvas.height = 180;
       const ctx = canvas.getContext('2d');
 
-      // Deep indigo background
       const bgGrad = ctx.createLinearGradient(0, 0, 180, 180);
       bgGrad.addColorStop(0, '#1E1B4B');
-      bgGrad.addColorStop(1, '#090D16');
+      bgGrad.addColorStop(1, '#070B14');
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, 180, 180);
 
-      // Vibrant gradient circle
       const circleGrad = ctx.createLinearGradient(24, 24, 156, 156);
       circleGrad.addColorStop(0, '#F7931A');
       circleGrad.addColorStop(0.55, '#EC4899');
@@ -754,7 +924,6 @@
       ctx.fillStyle = circleGrad;
       ctx.fill();
 
-      // White Bitcoin Symbol
       ctx.fillStyle = '#FFFFFF';
       ctx.font = 'bold 82px -apple-system, BlinkMacSystemFont, sans-serif';
       ctx.textAlign = 'center';
@@ -766,7 +935,7 @@
       document.getElementById('fav-icon').href = dataUrl;
     }
 
-    // 2. DUAL PERSISTENT STORAGE (localStorage + IndexedDB)
+    // 2. DUAL PERSISTENT STORAGE (localStorage + IndexedDB + StorageManager)
     function openVaultDB() {
       return new Promise((resolve, reject) => {
         const req = indexedDB.open(DB_NAME, 1);
@@ -835,7 +1004,7 @@
       preview.style.display = 'flex';
       preview.innerHTML = `
         <span style="width:10px; height:10px; border-radius:50%; background:${info.color}; display:inline-block;"></span>
-        <span>Auto-deteksi: <strong>${info.name} (${info.symbol})</strong></span>
+        <span>Terdeteksi: <strong>${info.name} (${info.symbol})</strong></span>
       `;
     }
 
@@ -847,7 +1016,7 @@
       }
     }
 
-    function pickSuggestedCoin(symbol) {
+    function selectExistingCoin(symbol) {
       const info = resolveCoinInfo(symbol);
       const input = document.getElementById('input-coin');
       input.value = info.name === info.symbol ? info.symbol : `${info.name} (${info.symbol})`;
@@ -855,14 +1024,31 @@
       document.getElementById('input-idr').focus();
     }
 
-    // 4. FORMATTING & NAVIGATION
+    // 4. FORMATTING (COMMA DECIMAL & IDR)
     function formatIDR(num) {
       return 'Rp ' + Math.round(num).toLocaleString('id-ID');
     }
 
     function formatQty(num) {
       if (!num || num <= 0) return '-';
-      return parseFloat(num.toFixed(8)).toString();
+      return parseFloat(num.toFixed(8)).toString().replace('.', ',');
+    }
+
+    function sanitizeDecimalInput(el) {
+      let val = el.value.replace(/[^0-9.,]/g, '');
+      val = val.replace(/\./g, ',');
+      const parts = val.split(',');
+      if (parts.length > 2) {
+        val = parts[0] + ',' + parts.slice(1).join('');
+      }
+      el.value = val;
+    }
+
+    function parseCryptoQty(str) {
+      if (!str) return 0;
+      const normalized = str.toString().replace(/,/g, '.');
+      const num = parseFloat(normalized);
+      return isNaN(num) || num <= 0 ? 0 : num;
     }
 
     function formatIdrInput(el) {
@@ -870,10 +1056,11 @@
       el.value = raw ? parseInt(raw, 10).toLocaleString('id-ID') : '';
     }
 
-    function addNominal(amount) {
+    function adjustNominal(delta) {
       const el = document.getElementById('input-idr');
       const current = parseInt(el.value.replace(/\D/g, '') || '0', 10);
-      el.value = (current + amount).toLocaleString('id-ID');
+      const next = Math.max(0, current + delta);
+      el.value = next > 0 ? next.toLocaleString('id-ID') : '';
     }
 
     function switchTab(tabName) {
@@ -885,7 +1072,7 @@
 
     function quickSelectCoin(symbol) {
       switchTab('add');
-      pickSuggestedCoin(symbol);
+      selectExistingCoin(symbol);
     }
 
     function showToast(msg) {
@@ -901,12 +1088,12 @@
       const coinInfo = resolveCoinInfo(rawCoin);
       const idrRaw = document.getElementById('input-idr').value.replace(/\D/g, '');
       const idr = parseInt(idrRaw || '0', 10);
-      const qty = parseFloat(document.getElementById('input-qty').value || '0');
+      const qty = parseCryptoQty(document.getElementById('input-qty').value);
       const date = document.getElementById('input-date').value || new Date().toISOString().split('T')[0];
       const note = document.getElementById('input-note').value.trim();
 
       if (!coinInfo) {
-        alert('Masukkan nama atau kode koin kripto (contoh: btc).');
+        alert('Masukkan nama atau kode koin kripto terlebih dahulu.');
         return;
       }
       if (!idr || idr <= 0) {
@@ -919,7 +1106,7 @@
         coin: coinInfo.symbol,
         coinName: coinInfo.name,
         idr,
-        qty: qty > 0 ? qty : 0,
+        qty,
         date,
         note
       });
@@ -1000,10 +1187,11 @@
       }
 
       card.style.display = 'block';
+      document.getElementById('donut-count').textContent = `${coins.length} Koin`;
       svg.innerHTML = '';
       legend.innerHTML = '';
 
-      const cx = 60, cy = 60, r = 44, stroke = 16;
+      const cx = 60, cy = 60, r = 44, stroke = 15;
       const circumference = 2 * Math.PI * r;
       let offset = 0;
 
@@ -1032,7 +1220,7 @@
                 <span class="dot" style="background:${c.color}"></span>
                 <span>${c.name} <span style="color:var(--muted); font-size:11px;">(${c.symbol})</span></span>
               </div>
-              <span style="color:#E2E8F0; font-weight:700;">${pct.toFixed(1)}%</span>
+              <span style="color:#F1F5F9; font-weight:700;">${pct.toFixed(1).replace('.', ',')}%</span>
             </div>
           `;
         }
@@ -1043,9 +1231,9 @@
       const list = document.getElementById('asset-list');
       if (coins.length === 0) {
         list.innerHTML = `
-          <div class="card" style="text-align:center; padding:32px 18px; color:var(--muted);">
+          <div class="card" style="text-align:center; padding:34px 18px; color:var(--muted);">
             <div style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px;">Belum Ada Catatan DCA</div>
-            <div style="font-size:13px; margin-bottom:16px;">Mulai catat investasi kripto pertamamu sekarang.</div>
+            <div style="font-size:13px; margin-bottom:18px;">Mulai catat investasi kripto pertamamu sekarang.</div>
             <button class="btn-primary" style="max-width:210px; margin:0 auto;" onclick="switchTab('add')">+ Catat DCA Pertama</button>
           </div>
         `;
@@ -1053,7 +1241,8 @@
       }
 
       list.innerHTML = coins.map(c => {
-        const pct = grandTotal > 0 ? ((c.totalIdr / grandTotal) * 100).toFixed(1) : '0';
+        const pctNum = grandTotal > 0 ? (c.totalIdr / grandTotal) * 100 : 0;
+        const pctStr = pctNum.toFixed(1).replace('.', ',');
         const avgPrice = c.totalQty > 0 ? formatIDR(c.idrWithQty / c.totalQty) : '-';
 
         return `
@@ -1066,7 +1255,7 @@
                     <span>${c.name}</span>
                     <span class="ticker-tag">${c.symbol}</span>
                   </div>
-                  <div class="coin-sub">${c.count}x DCA • Porsi ${pct}%</div>
+                  <div class="coin-sub">${c.count}x DCA • Porsi ${pctStr}%</div>
                 </div>
               </div>
               <button class="quick-dca-btn" onclick="quickSelectCoin('${c.symbol}')">+ DCA</button>
@@ -1085,6 +1274,9 @@
                 <strong>${avgPrice}</strong>
               </div>
             </div>
+            <div class="alloc-bar-bg">
+              <div class="alloc-bar-fill" style="width:${Math.min(100, pctNum)}%; background:${c.grad};"></div>
+            </div>
           </div>
         `;
       }).join('');
@@ -1099,8 +1291,8 @@
       }
       wrap.style.display = 'block';
       container.innerHTML = coins.map(c => `
-        <button type="button" class="pill" style="border-color:${c.color}66;" onclick="pickSuggestedCoin('${c.symbol}')">
-          ● ${c.name} (${c.symbol})
+        <button type="button" class="pill" style="border-color:${c.color}77;" onclick="selectExistingCoin('${c.symbol}')">
+          <span style="color:${c.color};">●</span> ${c.name} (${c.symbol})
         </button>
       `).join('');
     }
