@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Nesdavaysya DCA" />
+  <meta name="theme-color" content="#090D16" />
+  <title>Nesdavaysya DCA</title>
+  <link id="apple-icon" rel="apple-touch-icon" href="" />
+  <link id="fav-icon" rel="icon" type="image/png" href="" />
+  <style>
+    :root {
+      --bg: #090D16;
+      --surface: #121826;
+      --surface-2: #1A2234;
+      --border: #263147;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --accent: #6366F1;
+      --accent-2: #06B6D4;
+      --green: #10B981;
+      --red: #F43F5E;
+      --safe-top: env(safe-area-inset-top, 20px);
+      --safe-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 0%, rgba(99, 102, 241, 0.16), transparent 42%),
+        radial-gradient(circle at 90% 12%, rgba(6, 182, 212, 0.14), transparent 38%);
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: calc(var(--safe-top) + 12px);
+      padding-bottom: calc(var(--safe-bottom) + 88px);
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #F7931A 0%, #EC4899 55%, #6366F1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      background: linear-gradient(90deg, #FFFFFF, #CBD5E1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-tag {
+      font-size: 11px;
+      color: #38BDF8;
+      font-weight: 600;
+    }
+
+    .top-add-btn {
+      background: linear-gradient(135deg, #6366F1, #06B6D4);
+      border: none;
+      color: #FFFFFF;
+      padding: 9px 14px;
+      border-radius: 11px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.28);
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #1E1B4B 0%, #172554 52%, #0F2942 100%);
+      border: 1px solid rgba(99, 102, 241, 0.45);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.55);
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -35px;
+      top: -45px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.28), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      font-size: 11.5px;
+      color: #A5B4FC;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      font-weight: 700;
+    }
+
+    .hero-total {
+      font-size: 32px;
+      font-weight: 800;
+      margin: 6px 0 16px;
+      letter-spacing: -0.7px;
+      color: #FFFFFF;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding-top: 13px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .stat-item span {
+      display: block;
+      font-size: 10.5px;
+      color: #93C5FD;
+      margin-bottom: 2px;
+    }
+
+    .stat-item strong {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    /* CHART SECTION */
+    .chart-wrap {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .legend-list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .legend-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ASSET LIST */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 18px 0 10px;
+    }
+
+    .section-title {
+      font-size: 15.5px;
+      font-weight: 700;
+    }
+
+    .asset-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 15px;
+      margin-bottom: 11px;
+      transition: border-color 0.2s;
+    }
+
+    .asset-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 11px;
+    }
+
+    .coin-badge {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .coin-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      color: #FFFFFF;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+      flex-shrink: 0;
+    }
+
+    .coin-title {
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ticker-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.08);
+      color: #CBD5E1;
+    }
+
+    .coin-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .quick-dca-btn {
+      background: rgba(16, 185, 129, 0.14);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: var(--surface-2);
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
+
+    .asset-metric span {
+      display: block;
+      font-size: 10.5px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .asset-metric strong {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #F1F5F9;
+    }
+
+    /* FORMS */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+
+    .input-box {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 13px 14px;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .input-box:focus {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+    }
+
+    .autocorrect-preview {
+      margin-top: 8px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.14);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      color: #C7D2FE;
+    }
+
+    .pill-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .pill:active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FFFFFF;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #6366F1 0%, #3B82F6 50%, #06B6D4 100%);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 14px;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 6px;
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+
+    /* HISTORY */
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .del-btn {
+      background: rgba(244, 63, 94, 0.14);
+      color: #FB7185;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(18, 24, 38, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 8px calc(var(--safe-bottom) + 8px);
+      z-index: 100;
+    }
+
+    .nav-item {
+      background: none;
+      border: none;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .nav-item.active {
+      color: #38BDF8;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    .toast {
+      position: fixed;
+      top: calc(var(--safe-top) + 14px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 10000;
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
+      display: none;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.14);
+      padding: 5px 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast">Tersimpan!</div>
+
+  <div class="container">
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#FFFFFF">
+            <path d="M14.24 10.56c.31-.68.42-1.56-.17-2.42-.52-.75-1.46-1.15-2.67-1.26V5h-1.3v1.83c-.34 0-.69.01-1.04.02V5H7.76v1.88H5.5v1.39h.95c.46 0 .64.23.69.53v6.37c-.04.25-.2.46-.57.46H5.5v1.52h2.26V19h1.3v-1.82c.35.01.7.01 1.04.01V19h1.3v-1.85c2.16-.14 3.63-.74 3.84-2.69.16-1.52-.56-2.25-1.69-2.55.72-.35 1.19-.94 1.19-1.35zm-4.13-2.34c.96 0 2.02.27 2.02 1.29 0 1.05-1.08 1.33-2.02 1.33H9.07V8.22h1.04zm.36 7.45H9.07v-2.9h1.45c1.14 0 2.34.3 2.34 1.46 0 1.18-1.16 1.44-2.39 1.44z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">Nesdavaysya DCA</div>
+          <div class="brand-tag">Crypto Portfolio Tracker</div>
+        </div>
+      </div>
+      <button class="top-add-btn" onclick="switchTab('add')">+ Catat DCA</button>
+    </div>
+
+    <!-- TAB 1: PORTFOLIO -->
+    <div id="tab-dashboard" class="tab-pane active">
+      <div class="card hero-card">
+        <div class="hero-label">Total Modal DCA Terkumpul</div>
+        <div id="total-idr" class="hero-total">Rp 0</div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span>Total Aset</span>
+            <strong id="total-coins">0 Koin</strong>
+          </div>
+          <div class="stat-item">
+            <span>Frekuensi</span>
+            <strong id="total-tx">0x Beli</strong>
+          </div>
+          <div class="stat-item">
+            <span>Rata-rata / Beli</span>
+            <strong id="avg-per-tx">Rp 0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div id="chart-card" class="card" style="display:none;">
+        <div class="section-title" style="margin-bottom:12px;">Komposisi Portofolio</div>
+        <div class="chart-wrap">
+          <svg id="donut-svg" width="118" height="118" viewBox="0 0 120 120"></svg>
+          <div id="chart-legend" class="legend-list"></div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Aset Kripto Kamu</div>
+        <span style="font-size:12px; color:var(--muted);">Urut modal terbesar</span>
+      </div>
+      <div id="asset-list"></div>
+    </div>
+
+    <!-- TAB 2: ADD DCA -->
+    <div id="tab-add" class="tab-pane">
+      <div class="card">
+        <div class="section-title" style="margin-bottom:14px;">Catat Pembelian DCA Baru</div>
+
+        <div id="existing-coins-wrap" class="form-group" style="display:none;">
+          <label class="form-label">Koin yang Sudah Kamu Miliki (Ketuk untuk tambah DCA):</label>
+          <div id="existing-coin-pills" class="pill-wrap"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Ketik Nama / Kode Kripto (otomatis koreksi ke nama resmi)</label>
+          <input
+            type="text"
+            id="input-coin"
+            class="input-box"
+            placeholder="Ketik btc, eth, sol, sui..."
+            oninput="handleCoinTyping(this.value)"
+            onblur="applyCoinAutocorrect()"
+          />
+          <div id="autocorrect-preview" class="autocorrect-preview"></div>
+          <div class="pill-wrap" style="margin-top:9px; margin-bottom:0;">
+            <button type="button" class="pill" onclick="pickSuggestedCoin('BTC')">Bitcoin (BTC)</button>
+            <button type="button" class="pill" onclick="pickSuggestedCoin('ETH')">Ethereum (ETH)</button>
+            <button type="button" class="pill" onclick="pickSuggestedCoin('SOL')">Solana (SOL)</button>
+            <button type="button" class="pill" onclick="pickSuggestedCoin('SUI')">Sui (SUI)</button>
+            <button type="button" class="pill" onclick="pickSuggestedCoin('XRP')">Ripple (XRP)</button>
+            <button type="button" class="pill" onclick="pickSuggestedCoin('BNB')">BNB</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nominal Investasi (IDR)</label>
+          <div class="pill-wrap">
+            <button type="button" class="pill" onclick="addNominal(100000)">+100rb</button>
+            <button type="button" class="pill" onclick="addNominal(250000)">+250rb</button>
+            <button type="button" class="pill" onclick="addNominal(500000)">+500rb</button>
+            <button type="button" class="pill" onclick="addNominal(1000000)">+1jt</button>
+          </div>
+          <input type="text" id="input-idr" class="input-box" inputmode="numeric" placeholder="500.000" oninput="formatIdrInput(this)" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Jumlah Koin Didapat (Opsional — untuk hitung Avg Price)</label>
+          <input type="number" id="input-qty" class="input-box" step="any" inputmode="decimal" placeholder="Contoh: 0.00045" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tanggal Pembelian</label>
+          <input type="date" id="input-date" class="input-box" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Catatan (Opsional)</label>
+          <input type="text" id="input-note" class="input-box" placeholder="DCA bulanan" />
+        </div>
+
+        <button class="btn-primary" onclick="saveDcaEntry()">Simpan Catatan DCA</button>
+      </div>
+    </div>
+
+    <!-- TAB 3: HISTORY & BACKUP -->
+    <div id="tab-history" class="tab-pane">
+      <div class="card">
+        <div class="section-title" style="margin-bottom:8px;">Penyimpanan Lokal Permanen</div>
+        <div id="storage-status" class="status-pill">● Tersimpan Lokal & Aman di iPhone</div>
+        <p style="font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:14px;">
+          Semua data 100% tersimpan lokal di perangkatmu (tidak dikirim ke server mana pun). Gunakan tombol di bawah untuk menyimpan salinan cadangan jika berganti HP.
+        </p>
+        <button class="btn-secondary" onclick="exportBackup()">⬇️ Download Backup Data (JSON)</button>
+        <button class="btn-secondary" onclick="document.getElementById('import-file').click()" style="margin-bottom:0;">⬆️ Pulihkan Data dari Backup</button>
+        <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importBackup(event)" />
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Riwayat Transaksi DCA</div>
+        <select id="filter-coin" onchange="renderHistory()" style="background:var(--surface); color:var(--text); border:1px solid var(--border); padding:6px 10px; border-radius:8px; font-size:12px;">
+          <option value="ALL">Semua Koin</option>
+        </select>
+      </div>
+      <div class="card" id="history-list"></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+    <button id="nav-dashboard" class="nav-item active" onclick="switchTab('dashboard')">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+      <span>Portofolio</span>
+    </button>
+    <button id="nav-add" class="nav-item" onclick="switchTab('add')">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+      <span>Tambah DCA</span>
+    </button>
+    <button id="nav-history" class="nav-item" onclick="switchTab('history')">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span>Riwayat & Backup</span>
+    </button>
+  </nav>
+
+  <script>
+    const STORAGE_KEY = 'nesdavaysya_dca_entries_v1';
+    const DB_NAME = 'NesdavaysyaDCADB';
+    const STORE_NAME = 'vault';
+
+    // DICTIONARY UNTUK AUTO-CORRECT & WARNA KHAS TIAP KOIN
+    const COIN_CATALOG = {
+      BTC:    { symbol: 'BTC',    name: 'Bitcoin',      color: '#F7931A', grad: 'linear-gradient(135deg, #F7931A, #EA580C)' },
+      ETH:    { symbol: 'ETH',    name: 'Ethereum',     color: '#6366F1', grad: 'linear-gradient(135deg, #6366F1, #8B5CF6)' },
+      SOL:    { symbol: 'SOL',    name: 'Solana',       color: '#14F195', grad: 'linear-gradient(135deg, #9945FF, #14F195)' },
+      BNB:    { symbol: 'BNB',    name: 'BNB',          color: '#F3BA2F', grad: 'linear-gradient(135deg, #F3BA2F, #D97706)' },
+      XRP:    { symbol: 'XRP',    name: 'Ripple',       color: '#0EA5E9', grad: 'linear-gradient(135deg, #0284C7, #38BDF8)' },
+      ADA:    { symbol: 'ADA',    name: 'Cardano',      color: '#3B82F6', grad: 'linear-gradient(135deg, #1D4ED8, #3B82F6)' },
+      DOGE:   { symbol: 'DOGE',   name: 'Dogecoin',     color: '#EAB308', grad: 'linear-gradient(135deg, #EAB308, #CA8A04)' },
+      SUI:    { symbol: 'SUI',    name: 'Sui',          color: '#06B6D4', grad: 'linear-gradient(135deg, #0891B2, #22D3EE)' },
+      TON:    { symbol: 'TON',    name: 'Toncoin',      color: '#0098EA', grad: 'linear-gradient(135deg, #0284C7, #0098EA)' },
+      AVAX:   { symbol: 'AVAX',   name: 'Avalanche',    color: '#EF4444', grad: 'linear-gradient(135deg, #DC2626, #F87171)' },
+      LINK:   { symbol: 'LINK',   name: 'Chainlink',    color: '#2563EB', grad: 'linear-gradient(135deg, #1E40AF, #3B82F6)' },
+      DOT:    { symbol: 'DOT',    name: 'Polkadot',     color: '#EC4899', grad: 'linear-gradient(135deg, #DB2777, #F472B6)' },
+      POL:    { symbol: 'POL',    name: 'Polygon',      color: '#8B5CF6', grad: 'linear-gradient(135deg, #7C3AED, #A78BFA)' },
+      MATIC:  { symbol: 'POL',    name: 'Polygon',      color: '#8B5CF6', grad: 'linear-gradient(135deg, #7C3AED, #A78BFA)' },
+      NEAR:   { symbol: 'NEAR',   name: 'NEAR Protocol',color: '#10B981', grad: 'linear-gradient(135deg, #059669, #34D399)' },
+      ARB:    { symbol: 'ARB',    name: 'Arbitrum',     color: '#38BDF8', grad: 'linear-gradient(135deg, #1E3A8A, #38BDF8)' },
+      OP:     { symbol: 'OP',     name: 'Optimism',     color: '#F43F5E', grad: 'linear-gradient(135deg, #E11D48, #FB7185)' },
+      PEPE:   { symbol: 'PEPE',   name: 'Pepe',         color: '#22C55E', grad: 'linear-gradient(135deg, #15803D, #4ADE80)' },
+      SHIB:   { symbol: 'SHIB',   name: 'Shiba Inu',    color: '#F97316', grad: 'linear-gradient(135deg, #EA580C, #FB923C)' },
+      RENDER: { symbol: 'RENDER', name: 'Render',       color: '#F43F5E', grad: 'linear-gradient(135deg, #BE123C, #F43F5E)' },
+      FET:    { symbol: 'FET',    name: 'Fetch.ai',     color: '#6366F1', grad: 'linear-gradient(135deg, #312E81, #6366F1)' },
+      HYPE:   { symbol: 'HYPE',   name: 'Hyperliquid',  color: '#2DD4BF', grad: 'linear-gradient(135deg, #0F766E, #2DD4BF)' },
+      USDT:   { symbol: 'USDT',   name: 'Tether',       color: '#10B981', grad: 'linear-gradient(135deg, #047857, #10B981)' },
+      USDC:   { symbol: 'USDC',   name: 'USD Coin',     color: '#2563EB', grad: 'linear-gradient(135deg, #1D4ED8, #60A5FA)' }
+    };
+
+    const CUSTOM_PALETTE = [
+      { color: '#EC4899', grad: 'linear-gradient(135deg, #DB2777, #F472B6)' },
+      { color: '#8B5CF6', grad: 'linear-gradient(135deg, #7C3AED, #A78BFA)' },
+      { color: '#06B6D4', grad: 'linear-gradient(135deg, #0891B2, #22D3EE)' },
+      { color: '#10B981', grad: 'linear-gradient(135deg, #059669, #34D399)' },
+      { color: '#F59E0B', grad: 'linear-gradient(135deg, #D97706, #FBBF24)' }
+    ];
+
+    let entries = [];
+
+    function resolveCoinInfo(raw) {
+      const cleaned = (raw || '').trim();
+      if (!cleaned) return null;
+
+      // Cek jika format sudah "Bitcoin (BTC)"
+      const parenMatch = cleaned.match(/\(([A-Za-z0-9]+)\)$/);
+      const lookupKey = (parenMatch ? parenMatch[1] : cleaned).toUpperCase();
+
+      if (COIN_CATALOG[lookupKey]) {
+        return COIN_CATALOG[lookupKey];
+      }
+
+      // Cek berdasarkan nama lengkap (misal user ketik "bitcoin" atau "solana")
+      const byName = Object.values(COIN_CATALOG).find(
+        c => c.name.toLowerCase() === cleaned.toLowerCase()
+      );
+      if (byName) return byName;
+
+      // Koin kustom di luar katalog
+      const hash = lookupKey.split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+      const style = CUSTOM_PALETTE[hash % CUSTOM_PALETTE.length];
+      return {
+        symbol: lookupKey,
+        name: cleaned.length <= 6 ? lookupKey : cleaned.charAt(0).toUpperCase() + cleaned.slice(1),
+        color: style.color,
+        grad: style.grad
+      };
+    }
+
+    // 1. GENERATE COLORFUL APPLE TOUCH ICON FOR IPHONE HOME SCREEN
+    function generateAppIcons() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 180;
+      canvas.height = 180;
+      const ctx = canvas.getContext('2d');
+
+      // Deep indigo background
+      const bgGrad = ctx.createLinearGradient(0, 0, 180, 180);
+      bgGrad.addColorStop(0, '#1E1B4B');
+      bgGrad.addColorStop(1, '#090D16');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 180, 180);
+
+      // Vibrant gradient circle
+      const circleGrad = ctx.createLinearGradient(24, 24, 156, 156);
+      circleGrad.addColorStop(0, '#F7931A');
+      circleGrad.addColorStop(0.55, '#EC4899');
+      circleGrad.addColorStop(1, '#6366F1');
+      ctx.beginPath();
+      ctx.arc(90, 90, 66, 0, Math.PI * 2);
+      ctx.fillStyle = circleGrad;
+      ctx.fill();
+
+      // White Bitcoin Symbol
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 82px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('₿', 90, 94);
+
+      const dataUrl = canvas.toDataURL('image/png');
+      document.getElementById('apple-icon').href = dataUrl;
+      document.getElementById('fav-icon').href = dataUrl;
+    }
+
+    // 2. DUAL PERSISTENT STORAGE (localStorage + IndexedDB)
+    function openVaultDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME);
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function saveToVault(data) {
+      const json = JSON.stringify(data);
+      try { localStorage.setItem(STORAGE_KEY, json); } catch (e) {}
+      try {
+        const db = await openVaultDB();
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).put(json, STORAGE_KEY);
+      } catch (e) {}
+    }
+
+    async function loadFromVault() {
+      let localData = null;
+      try { localData = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+
+      if (localData) {
+        entries = JSON.parse(localData);
+        saveToVault(entries);
+        return;
+      }
+
+      try {
+        const db = await openVaultDB();
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const req = tx.objectStore(STORE_NAME).get(STORAGE_KEY);
+        req.onsuccess = () => {
+          if (req.result) {
+            entries = JSON.parse(req.result);
+            localStorage.setItem(STORAGE_KEY, req.result);
+            renderAll();
+          }
+        };
+      } catch (e) {}
+    }
+
+    async function requestMultiYearPersistence() {
+      if (navigator.storage && navigator.storage.persist) {
+        const granted = await navigator.storage.persist();
+        if (granted) {
+          document.getElementById('storage-status').textContent = '● Penyimpanan Permanen Multi-Tahun Aktif';
+        }
+      }
+    }
+
+    // 3. COIN AUTO-CORRECT HANDLERS
+    function handleCoinTyping(val) {
+      const preview = document.getElementById('autocorrect-preview');
+      const info = resolveCoinInfo(val);
+      if (!info || !val.trim()) {
+        preview.style.display = 'none';
+        return;
+      }
+      preview.style.display = 'flex';
+      preview.innerHTML = `
+        <span style="width:10px; height:10px; border-radius:50%; background:${info.color}; display:inline-block;"></span>
+        <span>Auto-deteksi: <strong>${info.name} (${info.symbol})</strong></span>
+      `;
+    }
+
+    function applyCoinAutocorrect() {
+      const input = document.getElementById('input-coin');
+      const info = resolveCoinInfo(input.value);
+      if (info) {
+        input.value = info.name === info.symbol ? info.symbol : `${info.name} (${info.symbol})`;
+      }
+    }
+
+    function pickSuggestedCoin(symbol) {
+      const info = resolveCoinInfo(symbol);
+      const input = document.getElementById('input-coin');
+      input.value = info.name === info.symbol ? info.symbol : `${info.name} (${info.symbol})`;
+      handleCoinTyping(input.value);
+      document.getElementById('input-idr').focus();
+    }
+
+    // 4. FORMATTING & NAVIGATION
+    function formatIDR(num) {
+      return 'Rp ' + Math.round(num).toLocaleString('id-ID');
+    }
+
+    function formatQty(num) {
+      if (!num || num <= 0) return '-';
+      return parseFloat(num.toFixed(8)).toString();
+    }
+
+    function formatIdrInput(el) {
+      const raw = el.value.replace(/\D/g, '');
+      el.value = raw ? parseInt(raw, 10).toLocaleString('id-ID') : '';
+    }
+
+    function addNominal(amount) {
+      const el = document.getElementById('input-idr');
+      const current = parseInt(el.value.replace(/\D/g, '') || '0', 10);
+      el.value = (current + amount).toLocaleString('id-ID');
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById('tab-' + tabName).classList.add('active');
+      document.getElementById('nav-' + tabName).classList.add('active');
+    }
+
+    function quickSelectCoin(symbol) {
+      switchTab('add');
+      pickSuggestedCoin(symbol);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2200);
+    }
+
+    // 5. CORE DCA LOGIC
+    async function saveDcaEntry() {
+      const rawCoin = document.getElementById('input-coin').value;
+      const coinInfo = resolveCoinInfo(rawCoin);
+      const idrRaw = document.getElementById('input-idr').value.replace(/\D/g, '');
+      const idr = parseInt(idrRaw || '0', 10);
+      const qty = parseFloat(document.getElementById('input-qty').value || '0');
+      const date = document.getElementById('input-date').value || new Date().toISOString().split('T')[0];
+      const note = document.getElementById('input-note').value.trim();
+
+      if (!coinInfo) {
+        alert('Masukkan nama atau kode koin kripto (contoh: btc).');
+        return;
+      }
+      if (!idr || idr <= 0) {
+        alert('Masukkan nominal investasi dalam Rupiah.');
+        return;
+      }
+
+      entries.unshift({
+        id: Date.now().toString(),
+        coin: coinInfo.symbol,
+        coinName: coinInfo.name,
+        idr,
+        qty: qty > 0 ? qty : 0,
+        date,
+        note
+      });
+
+      await saveToVault(entries);
+
+      document.getElementById('input-idr').value = '';
+      document.getElementById('input-qty').value = '';
+      document.getElementById('input-note').value = '';
+
+      renderAll();
+      switchTab('dashboard');
+      showToast(`DCA ${coinInfo.name} (${coinInfo.symbol}) tersimpan!`);
+    }
+
+    async function deleteEntry(id) {
+      if (!confirm('Hapus catatan DCA ini?')) return;
+      entries = entries.filter(e => e.id !== id);
+      await saveToVault(entries);
+      renderAll();
+      showToast('Catatan dihapus');
+    }
+
+    function getAggregatedCoins() {
+      const map = {};
+      entries.forEach(e => {
+        const info = resolveCoinInfo(e.coin);
+        const sym = info.symbol;
+        if (!map[sym]) {
+          map[sym] = {
+            symbol: sym,
+            name: info.name,
+            color: info.color,
+            grad: info.grad,
+            totalIdr: 0,
+            totalQty: 0,
+            idrWithQty: 0,
+            count: 0
+          };
+        }
+        map[sym].totalIdr += e.idr;
+        map[sym].count += 1;
+        if (e.qty > 0) {
+          map[sym].totalQty += e.qty;
+          map[sym].idrWithQty += e.idr;
+        }
+      });
+
+      return Object.values(map).sort((a, b) => b.totalIdr - a.totalIdr);
+    }
+
+    // 6. RENDERING
+    function renderAll() {
+      const coins = getAggregatedCoins();
+      const grandTotalIdr = coins.reduce((sum, c) => sum + c.totalIdr, 0);
+      const avgTx = entries.length > 0 ? grandTotalIdr / entries.length : 0;
+
+      document.getElementById('total-idr').textContent = formatIDR(grandTotalIdr);
+      document.getElementById('total-coins').textContent = `${coins.length} Koin`;
+      document.getElementById('total-tx').textContent = `${entries.length}x Beli`;
+      document.getElementById('avg-per-tx').textContent = formatIDR(avgTx);
+
+      renderChart(coins, grandTotalIdr);
+      renderAssetCards(coins, grandTotalIdr);
+      renderQuickCoinPills(coins);
+      renderFilterOptions(coins);
+      renderHistory();
+    }
+
+    function renderChart(coins, grandTotal) {
+      const card = document.getElementById('chart-card');
+      const svg = document.getElementById('donut-svg');
+      const legend = document.getElementById('chart-legend');
+
+      if (coins.length === 0 || grandTotal <= 0) {
+        card.style.display = 'none';
+        return;
+      }
+
+      card.style.display = 'block';
+      svg.innerHTML = '';
+      legend.innerHTML = '';
+
+      const cx = 60, cy = 60, r = 44, stroke = 16;
+      const circumference = 2 * Math.PI * r;
+      let offset = 0;
+
+      coins.forEach((c, idx) => {
+        const pct = (c.totalIdr / grandTotal) * 100;
+        const dash = (pct / 100) * circumference;
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', cx);
+        circle.setAttribute('cy', cy);
+        circle.setAttribute('r', r);
+        circle.setAttribute('fill', 'none');
+        circle.setAttribute('stroke', c.color);
+        circle.setAttribute('stroke-width', stroke);
+        circle.setAttribute('stroke-dasharray', `${dash} ${circumference}`);
+        circle.setAttribute('stroke-dashoffset', -offset);
+        circle.setAttribute('transform', `rotate(-90 ${cx} ${cy})`);
+        svg.appendChild(circle);
+
+        offset += dash;
+
+        if (idx < 5) {
+          legend.innerHTML += `
+            <div class="legend-row">
+              <div class="legend-left">
+                <span class="dot" style="background:${c.color}"></span>
+                <span>${c.name} <span style="color:var(--muted); font-size:11px;">(${c.symbol})</span></span>
+              </div>
+              <span style="color:#E2E8F0; font-weight:700;">${pct.toFixed(1)}%</span>
+            </div>
+          `;
+        }
+      });
+    }
+
+    function renderAssetCards(coins, grandTotal) {
+      const list = document.getElementById('asset-list');
+      if (coins.length === 0) {
+        list.innerHTML = `
+          <div class="card" style="text-align:center; padding:32px 18px; color:var(--muted);">
+            <div style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px;">Belum Ada Catatan DCA</div>
+            <div style="font-size:13px; margin-bottom:16px;">Mulai catat investasi kripto pertamamu sekarang.</div>
+            <button class="btn-primary" style="max-width:210px; margin:0 auto;" onclick="switchTab('add')">+ Catat DCA Pertama</button>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = coins.map(c => {
+        const pct = grandTotal > 0 ? ((c.totalIdr / grandTotal) * 100).toFixed(1) : '0';
+        const avgPrice = c.totalQty > 0 ? formatIDR(c.idrWithQty / c.totalQty) : '-';
+
+        return `
+          <div class="asset-card">
+            <div class="asset-top">
+              <div class="coin-badge">
+                <div class="coin-avatar" style="background:${c.grad};">${c.symbol.slice(0, 4)}</div>
+                <div>
+                  <div class="coin-title">
+                    <span>${c.name}</span>
+                    <span class="ticker-tag">${c.symbol}</span>
+                  </div>
+                  <div class="coin-sub">${c.count}x DCA • Porsi ${pct}%</div>
+                </div>
+              </div>
+              <button class="quick-dca-btn" onclick="quickSelectCoin('${c.symbol}')">+ DCA</button>
+            </div>
+            <div class="asset-grid">
+              <div class="asset-metric">
+                <span>Modal IDR</span>
+                <strong>${formatIDR(c.totalIdr)}</strong>
+              </div>
+              <div class="asset-metric">
+                <span>Total Koin</span>
+                <strong>${formatQty(c.totalQty)}</strong>
+              </div>
+              <div class="asset-metric">
+                <span>Avg. Harga Beli</span>
+                <strong>${avgPrice}</strong>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderQuickCoinPills(coins) {
+      const wrap = document.getElementById('existing-coins-wrap');
+      const container = document.getElementById('existing-coin-pills');
+      if (coins.length === 0) {
+        wrap.style.display = 'none';
+        return;
+      }
+      wrap.style.display = 'block';
+      container.innerHTML = coins.map(c => `
+        <button type="button" class="pill" style="border-color:${c.color}66;" onclick="pickSuggestedCoin('${c.symbol}')">
+          ● ${c.name} (${c.symbol})
+        </button>
+      `).join('');
+    }
+
+    function renderFilterOptions(coins) {
+      const select = document.getElementById('filter-coin');
+      const current = select.value;
+      select.innerHTML = `<option value="ALL">Semua Koin</option>` +
+        coins.map(c => `<option value="${c.symbol}">${c.name} (${c.symbol})</option>`).join('');
+      if ([...select.options].some(o => o.value === current)) {
+        select.value = current;
+      }
+    }
+
+    function renderHistory() {
+      const filter = document.getElementById('filter-coin').value;
+      const list = document.getElementById('history-list');
+      const filtered = filter === 'ALL' ? entries : entries.filter(e => resolveCoinInfo(e.coin).symbol === filter);
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div style="text-align:center; color:var(--muted); font-size:13px; padding:16px 0;">Belum ada riwayat transaksi.</div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(e => {
+        const info = resolveCoinInfo(e.coin);
+        return `
+          <div class="history-item">
+            <div>
+              <div style="font-weight:700; font-size:14.5px;">
+                ${info.name} (${info.symbol}) — <span style="color:${info.color};">${formatIDR(e.idr)}</span>
+              </div>
+              <div style="font-size:12px; color:var(--muted); margin-top:3px;">
+                ${e.date}${e.qty > 0 ? ` • +${formatQty(e.qty)} ${info.symbol}` : ''}${e.note ? ` • ${e.note}` : ''}
+              </div>
+            </div>
+            <button class="del-btn" onclick="deleteEntry('${e.id}')">Hapus</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 7. BACKUP & RESTORE
+    function exportBackup() {
+      const payload = {
+        app: 'Nesdavaysya DCA',
+        exportedAt: new Date().toISOString(),
+        entries
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `nesdavaysya-dca-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('File backup diunduh!');
+    }
+
+    function importBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          const importedEntries = Array.isArray(parsed) ? parsed : parsed.entries;
+          if (!Array.isArray(importedEntries)) throw new Error('Format tidak valid');
+          if (!confirm(`Pulihkan ${importedEntries.length} catatan DCA dari file backup? Data saat ini akan diganti.`)) return;
+          entries = importedEntries;
+          await saveToVault(entries);
+          renderAll();
+          showToast('Data berhasil dipulihkan!');
+        } catch (err) {
+          alert('File backup tidak valid atau rusak.');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    // INIT
+    window.addEventListener('DOMContentLoaded', async () => {
+      generateAppIcons();
+      document.getElementById('input-date').value = new Date().toISOString().split('T')[0];
+      await loadFromVault();
+      await requestMultiYearPersistence();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
