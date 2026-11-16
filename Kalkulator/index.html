@@ -1,1 +1,1369 @@
-t
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Budget Berdua" />
+  <meta name="theme-color" content="#070B14" />
+  <title>Nesdavaysya Budget — Biaya Hidup Berdua</title>
+  <link id="apple-icon" rel="apple-touch-icon" href="" />
+  <link id="fav-icon" rel="icon" type="image/png" href="" />
+  <style>
+    :root {
+      --bg: #070B14;
+      --surface: rgba(17, 24, 39, 0.8);
+      --surface-solid: #111827;
+      --border: rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --emerald: #10B981;
+      --teal: #06B6D4;
+      --indigo: #6366F1;
+      --pink: #EC4899;
+      --amber: #F59E0B;
+      --red: #F43F5E;
+      --safe-top: env(safe-area-inset-top, 20px);
+      --safe-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 12% -5%, rgba(16, 185, 129, 0.22), transparent 42%),
+        radial-gradient(circle at 90% 10%, rgba(6, 182, 212, 0.18), transparent 40%),
+        radial-gradient(circle at 50% 95%, rgba(99, 102, 241, 0.14), transparent 45%);
+      background-attachment: fixed;
+      color: var(--text);
+      min-height: 100vh;
+      padding-top: calc(var(--safe-top) + 14px);
+      padding-bottom: calc(var(--safe-bottom) + 96px);
+      overflow-x: hidden;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #10B981 0%, #06B6D4 55%, #6366F1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 20px;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      background: linear-gradient(90deg, #FFFFFF 0%, #A7F3D0 60%, #7DD3FC 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-tag {
+      font-size: 11px;
+      color: #34D399;
+      font-weight: 600;
+    }
+
+    .cycle-select {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      padding: 8px 11px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      outline: none;
+    }
+
+    /* GLASS CARDS */
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    /* HERO BALANCE CARD */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.92) 0%, rgba(14, 116, 144, 0.88) 52%, rgba(30, 58, 138, 0.9) 100%);
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 18px 38px rgba(6, 78, 59, 0.45);
+    }
+
+    .hero-card.warn {
+      background: linear-gradient(135deg, rgba(120, 53, 15, 0.94) 0%, rgba(154, 52, 18, 0.9) 55%, rgba(88, 28, 135, 0.88) 100%);
+      border-color: rgba(251, 191, 36, 0.45);
+    }
+
+    .hero-card.danger {
+      background: linear-gradient(135deg, rgba(136, 19, 55, 0.95) 0%, rgba(159, 18, 57, 0.92) 55%, rgba(49, 46, 129, 0.9) 100%);
+      border-color: rgba(251, 113, 133, 0.5);
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-label {
+      font-size: 11.5px;
+      color: #D1FAE5;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      font-weight: 700;
+    }
+
+    .edit-budget-btn {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hero-balance {
+      font-size: 33px;
+      font-weight: 800;
+      margin: 7px 0 4px;
+      letter-spacing: -0.8px;
+      color: #FFFFFF;
+    }
+
+    .hero-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 12px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.32);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #34D399, #38BDF8);
+      transition: width 0.3s ease;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .stat-box {
+      background: rgba(15, 23, 42, 0.38);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 13px;
+      padding: 9px 9px;
+    }
+
+    .stat-box span {
+      display: block;
+      font-size: 10px;
+      color: #BAE6FD;
+      margin-bottom: 2px;
+      font-weight: 600;
+    }
+
+    .stat-box strong {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    /* BUDGET SETUP BANNER */
+    .setup-card {
+      background: linear-gradient(135deg, rgba(30, 27, 75, 0.9), rgba(15, 118, 110, 0.85));
+      border: 1px solid rgba(56, 189, 248, 0.45);
+    }
+
+    /* FORMS & BUTTONS */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #CBD5E1;
+      margin-bottom: 7px;
+    }
+
+    .input-box {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.72);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 13px 14px;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .input-box:focus {
+      border-color: #34D399;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+    }
+
+    .nominal-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-bottom: 9px;
+    }
+
+    .pill {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .pill:active {
+      transform: scale(0.95);
+    }
+
+    .pill-minus {
+      background: rgba(244, 63, 94, 0.14);
+      border-color: rgba(244, 63, 94, 0.35);
+      color: #FDA4AF;
+      text-align: center;
+      padding: 9px 4px;
+    }
+
+    .pill-plus {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.38);
+      color: #6EE7B7;
+      text-align: center;
+      padding: 9px 4px;
+    }
+
+    /* CATEGORY GRID */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .cat-btn {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border-strong);
+      border-radius: 13px;
+      padding: 10px 11px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+
+    .cat-btn.selected {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: #34D399;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.22);
+    }
+
+    .cat-emoji {
+      font-size: 18px;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cat-name {
+      font-size: 12.5px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .cat-type {
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    /* WHO TOGGLE */
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .who-btn {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border-strong);
+      color: var(--muted);
+      padding: 10px 8px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .who-btn.selected {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(6, 182, 212, 0.3));
+      border-color: #38BDF8;
+      color: #FFFFFF;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, #10B981 0%, #06B6D4 55%, #3B82F6 100%);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 15px;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 4px;
+      box-shadow: 0 10px 24px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      background: rgba(30, 41, 59, 0.78);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      border-radius: 13px;
+      padding: 13px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 9px;
+    }
+
+    /* CATEGORY BREAKDOWN & ALGORITHM AUDIT */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 18px 0 10px;
+    }
+
+    .section-title {
+      font-size: 15.5px;
+      font-weight: 700;
+    }
+
+    .cat-row {
+      margin-bottom: 13px;
+    }
+
+    .cat-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .cat-row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 6px;
+    }
+
+    .algo-card {
+      background: linear-gradient(145deg, rgba(30, 27, 75, 0.85), rgba(17, 24, 39, 0.9));
+      border: 1px solid rgba(129, 140, 248, 0.38);
+    }
+
+    .algo-item {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 4px solid var(--amber);
+      border-radius: 14px;
+      padding: 13px;
+      margin-bottom: 10px;
+    }
+
+    .algo-item.high {
+      border-left-color: var(--red);
+    }
+
+    .algo-item.good {
+      border-left-color: var(--emerald);
+    }
+
+    .algo-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .badge-high {
+      background: rgba(244, 63, 94, 0.2);
+      color: #FDA4AF;
+    }
+
+    .badge-med {
+      background: rgba(245, 158, 11, 0.2);
+      color: #FCD34D;
+    }
+
+    .badge-good {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6EE7B7;
+    }
+
+    /* HISTORY */
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .del-btn {
+      background: rgba(244, 63, 94, 0.16);
+      color: #FDA4AF;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      padding: 6px 10px;
+      border-radius: 9px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* FLOATING GLASS BOTTOM NAV */
+    .bottom-nav-wrap {
+      position: fixed;
+      bottom: calc(var(--safe-bottom) + 10px);
+      left: 16px;
+      right: 16px;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .bottom-nav {
+      width: 100%;
+      max-width: 448px;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 22px;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 6px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55);
+      pointer-events: auto;
+    }
+
+    .nav-item {
+      background: none;
+      border: none;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      flex: 1;
+      padding: 6px 4px;
+      border-radius: 14px;
+      transition: all 0.18s ease;
+    }
+
+    .nav-item.active {
+      color: #FFFFFF;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(6, 182, 212, 0.3));
+      box-shadow: inset 0 0 0 1px rgba(52, 211, 153, 0.35);
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .toast {
+      position: fixed;
+      top: calc(var(--safe-top) + 14px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: #FFFFFF;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 10000;
+      box-shadow: 0 10px 24px rgba(16, 185, 129, 0.4);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toast" class="toast">Tersimpan!</div>
+
+  <div class="container">
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-icon">💳</div>
+        <div>
+          <div class="brand-name">Budget Berdua</div>
+          <div class="brand-tag">Siklus Tanggal 25</div>
+        </div>
+      </div>
+      <select id="cycle-selector" class="cycle-select" onchange="changeCycle(this.value)"></select>
+    </div>
+
+    <!-- TAB 1: DASHBOARD & INPUT CEPAT -->
+    <div id="tab-home" class="tab-pane active">
+
+      <!-- SETUP / EDIT BUDGET MODAL CARD -->
+      <div id="budget-setup-card" class="card setup-card" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <div class="section-title" id="setup-title">Set Budget Hidup (Mulai Tgl 25)</div>
+          <button id="cancel-setup-btn" onclick="toggleBudgetSetup(false)" style="display:none; background:none; border:none; color:#94A3B8; font-size:12px; font-weight:700;">Tutup</button>
+        </div>
+        <p style="font-size:12px; color:#CBD5E1; margin-bottom:12px; line-height:1.45;">
+          Masukkan total uang pegangan hidup berdua untuk periode <strong id="setup-period-label"></strong>:
+        </p>
+        <div class="nominal-grid">
+          <button type="button" class="pill pill-minus" onclick="adjustInput('input-budget', -500000)">-500rb</button>
+          <button type="button" class="pill pill-minus" onclick="adjustInput('input-budget', -100000)">-100rb</button>
+          <button type="button" class="pill pill-plus" onclick="adjustInput('input-budget', 100000)">+100rb</button>
+          <button type="button" class="pill pill-plus" onclick="adjustInput('input-budget', 500000)">+500rb</button>
+        </div>
+        <input type="text" id="input-budget" class="input-box" inputmode="numeric" placeholder="Contoh: 2.500.000" oninput="formatIdrInput(this)" style="margin-bottom:10px;" />
+        <button class="btn-primary" onclick="saveCycleBudget()">Simpan Budget Bulan Ini</button>
+      </div>
+
+      <!-- HERO SISA UANG -->
+      <div id="hero-card" class="card hero-card">
+        <div class="hero-top">
+          <div class="hero-label">Sisa Uang Hidup Bulan Ini</div>
+          <button class="edit-budget-btn" onclick="toggleBudgetSetup(true)">✎ Set Budget</button>
+        </div>
+        <div id="remaining-balance" class="hero-balance">Rp 0</div>
+        <div id="hero-sub" class="hero-sub">Dari budget Rp 0 • Terpakai Rp 0 (0%)</div>
+        <div class="progress-track">
+          <div id="hero-progress" class="progress-fill" style="width: 0%;"></div>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-box">
+            <span>Jatah Aman / Hari</span>
+            <strong id="daily-safe">Rp 0</strong>
+          </div>
+          <div class="stat-box">
+            <span>Rata2 Keluar / Hari</span>
+            <strong id="daily-actual">Rp 0</strong>
+          </div>
+          <div class="stat-box">
+            <span>Menuju Tgl 25</span>
+            <strong id="days-left">0 Hari</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM CATAT PENGELUARAN (OTOMATIS MINUS) -->
+      <div class="card">
+        <div class="section-title" style="margin-bottom:13px;">Catat Pengeluaran (Otomatis Minus)</div>
+
+        <div class="form-group">
+          <label class="form-label">Nominal Terpakai (IDR)</label>
+          <div class="nominal-grid">
+            <button type="button" class="pill pill-minus" onclick="adjustInput('input-spend', -100000)">-100rb</button>
+            <button type="button" class="pill pill-minus" onclick="adjustInput('input-spend', -25000)">-25rb</button>
+            <button type="button" class="pill pill-plus" onclick="adjustInput('input-spend', 25000)">+25rb</button>
+            <button type="button" class="pill pill-plus" onclick="adjustInput('input-spend', 100000)">+100rb</button>
+          </div>
+          <input type="text" id="input-spend" class="input-box" inputmode="numeric" placeholder="50.000" oninput="formatIdrInput(this)" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Kategori Pengeluaran</label>
+          <div id="category-grid" class="cat-grid"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Dipakai Oleh</label>
+          <div class="who-grid">
+            <button type="button" class="who-btn selected" data-who="Berdua" onclick="selectWho('Berdua')">👫 Berdua</button>
+            <button type="button" class="who-btn" data-who="Suami" onclick="selectWho('Suami')">👨 Suami</button>
+            <button type="button" class="who-btn" data-who="Istri" onclick="selectWho('Istri')">👩 Istri</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="display:grid; grid-template-columns: 1fr 1.2fr; gap:8px;">
+          <div>
+            <label class="form-label">Tanggal</label>
+            <input type="date" id="input-date" class="input-box" style="font-size:14px; padding:11px 10px;" />
+          </div>
+          <div>
+            <label class="form-label">Keterangan</label>
+            <input type="text" id="input-note" class="input-box" style="font-size:14px; padding:11px 12px;" placeholder="Makan malam / kopi" />
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="addExpense()">− Potong Saldo Sekarang</button>
+      </div>
+    </div>
+
+    <!-- TAB 2: ALGORITMA AUDIT & EVALUASI -->
+    <div id="tab-audit" class="tab-pane">
+      <div class="card algo-card">
+        <div style="display:flex; align-items:center; gap:9px; margin-bottom:8px;">
+          <span style="font-size:22px;">🧠</span>
+          <div>
+            <div class="section-title">Algoritma Evaluasi Pengeluaran</div>
+            <div style="font-size:11.5px; color:#A5B4FC;">Deteksi kebocoran & target hemat bulan depan</div>
+          </div>
+        </div>
+        <p id="algo-summary" style="font-size:12.5px; color:#E2E8F0; line-height:1.55; margin-bottom:14px;"></p>
+        <div id="algo-recommendations"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title" style="margin-bottom:12px;">Rincian per Kategori</div>
+        <div id="category-breakdown"></div>
+      </div>
+
+      <div class="card">
+        <div class="section-title" style="margin-bottom:12px;">Pembagian Pemakaian Berdua</div>
+        <div id="who-breakdown"></div>
+      </div>
+    </div>
+
+    <!-- TAB 3: RIWAYAT & BACKUP -->
+    <div id="tab-history" class="tab-pane">
+      <div class="section-header" style="margin-top:0;">
+        <div class="section-title">Riwayat Transaksi Siklus Ini</div>
+        <select id="filter-cat" onchange="renderHistory()" style="background:var(--surface-solid); color:var(--text); border:1px solid var(--border-strong); padding:6px 10px; border-radius:10px; font-size:12px;">
+          <option value="ALL">Semua Kategori</option>
+        </select>
+      </div>
+      <div class="card" id="history-list"></div>
+
+      <div class="card">
+        <div class="section-title" style="margin-bottom:8px;">Penyimpanan Lokal Multi-Tahun</div>
+        <p style="font-size:12.5px; color:var(--muted); line-height:1.5; margin-bottom:12px;">
+          Data tersimpan permanen di memori lokal iPhone (terpisah dari aplikasi kripto). Simpan file cadangan secara berkala.
+        </p>
+        <button class="btn-secondary" onclick="exportBackup()">⬇️ Download Backup Data (JSON)</button>
+        <button class="btn-secondary" onclick="document.getElementById('import-file').click()" style="margin-bottom:0;">⬆️ Pulihkan Data dari Backup</button>
+        <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importBackup(event)" />
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING GLASS BOTTOM NAVIGATION -->
+  <div class="bottom-nav-wrap">
+    <nav class="bottom-nav">
+      <button id="nav-home" class="nav-item active" onclick="switchTab('home')">
+        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        <span>Catat & Sisa</span>
+      </button>
+      <button id="nav-audit" class="nav-item" onclick="switchTab('audit')">
+        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <span>Evaluasi Hemat</span>
+      </button>
+      <button id="nav-history" class="nav-item" onclick="switchTab('history')">
+        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Riwayat & Backup</span>
+      </button>
+    </nav>
+  </div>
+
+  <script>
+    // KUNCI PENYIMPANAN KHUSUS AGAR TIDAK BENTROK DENGAN APLIKASI KRIPTO
+    const STORAGE_KEY = 'nesdavaysya_couple_budget_v1';
+    const DB_NAME = 'NesdavaysyaCoupleBudgetDB';
+    const STORE_NAME = 'vault';
+
+    // KATEGORI RUMAH TANGGA & KLASIFIKASI ALGORITMA (essential: true/false)
+    const CATEGORIES = [
+      { id: 'dapur',     name: 'Belanja Dapur',   emoji: '🛒', essential: true,  color: '#10B981', idealMaxPct: 35, tip: 'Masak di rumah jauh lebih hemat dibanding beli jadi.' },
+      { id: 'makanluar', name: 'Makan di Luar',   emoji: '🍽️', essential: false, color: '#F43F5E', idealMaxPct: 18, tip: 'Kurangi frekuensi makan di luar/pesan antar, ganti bawa bekal atau masak simpel.' },
+      { id: 'kopijajan', name: 'Kopi & Jajan',    emoji: '☕', essential: false, color: '#F59E0B', idealMaxPct: 10, tip: 'Kebocoran kecil paling sering. Bikin kopi sendiri di rumah 3-4x seminggu.' },
+      { id: 'transport', name: 'Bensin & Parkir', emoji: '⛽', essential: true,  color: '#3B82F6', idealMaxPct: 15, tip: 'Gabungkan rute perjalanan agar hemat bensin & parkir.' },
+      { id: 'tagihan',   name: 'Tagihan & Kuota', emoji: '⚡', essential: true,  color: '#06B6D4', idealMaxPct: 15, tip: 'Evaluasi paket data atau langganan aplikasi yang jarang dipakai.' },
+      { id: 'rumahtg',   name: 'Kebutuhan Rumah', emoji: '🧴', essential: true,  color: '#8B5CF6', idealMaxPct: 12, tip: 'Beli sabun/kebutuhan bulanan sekaligus saat promo tanggal kembar.' },
+      { id: 'hiburan',   name: 'Jalan Berdua',    emoji: '🎬', essential: false, color: '#EC4899', idealMaxPct: 12, tip: 'Tetapkan batas maksimal tiap kali kencan/jalan akhir pekan.' },
+      { id: 'lainnya',   name: 'Belanja Lainnya', emoji: '🛍️', essential: false, color: '#A855F7', idealMaxPct: 10, tip: 'Terapkan aturan tunggu 24 jam sebelum checkout barang non-pokok.' }
+    ];
+
+    const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+
+    let state = {
+      budgets: {},   // { "2026-10": 2500000 }
+      expenses: []   // { id, cycleId, amount, category, who, date, note }
+    };
+
+    let selectedCycleId = '';
+    let selectedCategory = 'makanluar';
+    let selectedWho = 'Berdua';
+
+    // 1. SIKLUS TANGGAL 25 HELPER
+    function getCycleIdFromDate(dateStr) {
+      const parts = dateStr.split('-').map(Number);
+      const y = parts[0];
+      const m = parts[1] - 1; // 0-indexed
+      const d = parts[2];
+
+      let startYear = y;
+      let startMonth = m;
+      if (d < 25) {
+        startMonth -= 1;
+        if (startMonth < 0) {
+          startMonth = 11;
+          startYear -= 1;
+        }
+      }
+      return `${startYear}-${String(startMonth + 1).padStart(2, '0')}`;
+    }
+
+    function getCycleDetails(cycleId) {
+      const [yStr, mStr] = cycleId.split('-');
+      const startYear = parseInt(yStr, 10);
+      const startMonth = parseInt(mStr, 10) - 1;
+
+      let endYear = startYear;
+      let endMonth = startMonth + 1;
+      if (endMonth > 11) {
+        endMonth = 0;
+        endYear += 1;
+      }
+
+      const startDate = new Date(startYear, startMonth, 25);
+      const endDate = new Date(endYear, endMonth, 24);
+      const totalDays = Math.round((endDate - startDate) / 86400000) + 1;
+
+      const label = `25 ${MONTH_NAMES[startMonth]} – 24 ${MONTH_NAMES[endMonth]} ${endYear}`;
+      const shortLabel = `25 ${MONTH_NAMES[startMonth]} - 24 ${MONTH_NAMES[endMonth]}`;
+
+      const now = new Date();
+      const todayMid = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+      let daysLeft = totalDays;
+      let daysElapsed = 1;
+
+      if (todayMid < startDate) {
+        daysLeft = totalDays;
+        daysElapsed = 0;
+      } else if (todayMid > endDate) {
+        daysLeft = 0;
+        daysElapsed = totalDays;
+      } else {
+        daysLeft = Math.round((endDate - todayMid) / 86400000) + 1;
+        daysElapsed = Math.round((todayMid - startDate) / 86400000) + 1;
+      }
+
+      return { cycleId, startDate, endDate, totalDays, daysLeft, daysElapsed, label, shortLabel };
+    }
+
+    // 2. ICON & STORAGE
+    function generateAppIcons() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 180;
+      canvas.height = 180;
+      const ctx = canvas.getContext('2d');
+
+      const bgGrad = ctx.createLinearGradient(0, 0, 180, 180);
+      bgGrad.addColorStop(0, '#064E3B');
+      bgGrad.addColorStop(1, '#070B14');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, 180, 180);
+
+      const circleGrad = ctx.createLinearGradient(24, 24, 156, 156);
+      circleGrad.addColorStop(0, '#10B981');
+      circleGrad.addColorStop(0.55, '#06B6D4');
+      circleGrad.addColorStop(1, '#6366F1');
+      ctx.beginPath();
+      ctx.arc(90, 90, 66, 0, Math.PI * 2);
+      ctx.fillStyle = circleGrad;
+      ctx.fill();
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 64px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Rp', 90, 93);
+
+      const dataUrl = canvas.toDataURL('image/png');
+      document.getElementById('apple-icon').href = dataUrl;
+      document.getElementById('fav-icon').href = dataUrl;
+    }
+
+    function openVaultDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, 1);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME);
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function saveVault() {
+      const json = JSON.stringify(state);
+      try { localStorage.setItem(STORAGE_KEY, json); } catch (e) {}
+      try {
+        const db = await openVaultDB();
+        const tx = db.transaction(STORE_NAME, 'readwrite');
+        tx.objectStore(STORE_NAME).put(json, STORAGE_KEY);
+      } catch (e) {}
+    }
+
+    async function loadVault() {
+      let raw = null;
+      try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+      if (raw) {
+        state = JSON.parse(raw);
+        saveVault();
+        return;
+      }
+      try {
+        const db = await openVaultDB();
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const req = tx.objectStore(STORE_NAME).get(STORAGE_KEY);
+        req.onsuccess = () => {
+          if (req.result) {
+            state = JSON.parse(req.result);
+            localStorage.setItem(STORAGE_KEY, req.result);
+            renderAll();
+          }
+        };
+      } catch (e) {}
+    }
+
+    // 3. FORMATTING & CONTROLS
+    function formatIDR(num) {
+      const prefix = num < 0 ? '-Rp ' : 'Rp ';
+      return prefix + Math.abs(Math.round(num)).toLocaleString('id-ID');
+    }
+
+    function formatIdrInput(el) {
+      const raw = el.value.replace(/\D/g, '');
+      el.value = raw ? parseInt(raw, 10).toLocaleString('id-ID') : '';
+    }
+
+    function adjustInput(id, delta) {
+      const el = document.getElementById(id);
+      const current = parseInt(el.value.replace(/\D/g, '') || '0', 10);
+      const next = Math.max(0, current + delta);
+      el.value = next > 0 ? next.toLocaleString('id-ID') : '';
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById('tab-' + tabName).classList.add('active');
+      document.getElementById('nav-' + tabName).classList.add('active');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2200);
+    }
+
+    function renderCategoryButtons() {
+      const grid = document.getElementById('category-grid');
+      grid.innerHTML = CATEGORIES.map(c => `
+        <button type="button" class="cat-btn ${c.id === selectedCategory ? 'selected' : ''}" onclick="selectCategory('${c.id}')">
+          <div class="cat-emoji" style="background:${c.color}26;">${c.emoji}</div>
+          <div>
+            <div class="cat-name">${c.name}</div>
+            <div class="cat-type">${c.essential ? 'Kebutuhan' : 'Gaya Hidup'}</div>
+          </div>
+        </button>
+      `).join('');
+
+      const filter = document.getElementById('filter-cat');
+      filter.innerHTML = `<option value="ALL">Semua Kategori</option>` +
+        CATEGORIES.map(c => `<option value="${c.id}">${c.emoji} ${c.name}</option>`).join('');
+    }
+
+    function selectCategory(id) {
+      selectedCategory = id;
+      renderCategoryButtons();
+    }
+
+    function selectWho(who) {
+      selectedWho = who;
+      document.querySelectorAll('.who-btn').forEach(b => {
+        b.classList.toggle('selected', b.dataset.who === who);
+      });
+    }
+
+    function toggleBudgetSetup(forceOpen) {
+      const card = document.getElementById('budget-setup-card');
+      const currentBudget = state.budgets[selectedCycleId] || 0;
+      if (forceOpen) {
+        card.style.display = 'block';
+        document.getElementById('cancel-setup-btn').style.display = currentBudget > 0 ? 'inline-block' : 'none';
+        document.getElementById('input-budget').value = currentBudget > 0 ? currentBudget.toLocaleString('id-ID') : '';
+        document.getElementById('input-budget').focus();
+      } else {
+        card.style.display = 'none';
+      }
+    }
+
+    async function saveCycleBudget() {
+      const raw = document.getElementById('input-budget').value.replace(/\D/g, '');
+      const val = parseInt(raw || '0', 10);
+      if (!val || val <= 0) {
+        alert('Masukkan nominal jatah uang hidup bulan ini.');
+        return;
+      }
+      state.budgets[selectedCycleId] = val;
+      await saveVault();
+      document.getElementById('budget-setup-card').style.display = 'none';
+      renderAll();
+      showToast('Budget siklus tanggal 25 tersimpan!');
+    }
+
+    async function addExpense() {
+      const raw = document.getElementById('input-spend').value.replace(/\D/g, '');
+      const amount = parseInt(raw || '0', 10);
+      const date = document.getElementById('input-date').value || new Date().toISOString().split('T')[0];
+      const note = document.getElementById('input-note').value.trim();
+
+      if (!amount || amount <= 0) {
+        alert('Masukkan nominal uang yang dipakai.');
+        return;
+      }
+
+      const cycleId = getCycleIdFromDate(date);
+      state.expenses.unshift({
+        id: Date.now().toString(),
+        cycleId,
+        amount,
+        category: selectedCategory,
+        who: selectedWho,
+        date,
+        note
+      });
+
+      selectedCycleId = cycleId;
+      await saveVault();
+
+      document.getElementById('input-spend').value = '';
+      document.getElementById('input-note').value = '';
+      renderAll();
+      showToast(`Saldo terpotong ${formatIDR(amount)}`);
+    }
+
+    async function deleteExpense(id) {
+      if (!confirm('Hapus catatan pengeluaran ini? Saldo akan dikembalikan.')) return;
+      state.expenses = state.expenses.filter(e => e.id !== id);
+      await saveVault();
+      renderAll();
+      showToast('Transaksi dihapus, saldo kembali!');
+    }
+
+    function changeCycle(cycleId) {
+      selectedCycleId = cycleId;
+      renderAll();
+    }
+
+    // 4. RENDERING & SMART REDUCTION ALGORITHM
+    function renderCycleDropdown() {
+      const todayStr = new Date().toISOString().split('T')[0];
+      const currentCycle = getCycleIdFromDate(todayStr);
+
+      const cycleSet = new Set([currentCycle, ...Object.keys(state.budgets), ...state.expenses.map(e => e.cycleId)]);
+      const sortedCycles = Array.from(cycleSet).sort().reverse();
+
+      if (!selectedCycleId || !cycleSet.has(selectedCycleId)) {
+        selectedCycleId = currentCycle;
+      }
+
+      const selector = document.getElementById('cycle-selector');
+      selector.innerHTML = sortedCycles.map(cid => {
+        const info = getCycleDetails(cid);
+        return `<option value="${cid}" ${cid === selectedCycleId ? 'selected' : ''}>${info.shortLabel}</option>`;
+      }).join('');
+    }
+
+    function renderAll() {
+      renderCycleDropdown();
+      const cycleInfo = getCycleDetails(selectedCycleId);
+      const budget = state.budgets[selectedCycleId] || 0;
+      const cycleExpenses = state.expenses.filter(e => e.cycleId === selectedCycleId);
+      const totalSpent = cycleExpenses.reduce((s, e) => s + e.amount, 0);
+      const remaining = budget - totalSpent;
+
+      // Setup Card Visibility
+      document.getElementById('setup-period-label').textContent = cycleInfo.label;
+      if (budget <= 0) {
+        document.getElementById('budget-setup-card').style.display = 'block';
+        document.getElementById('cancel-setup-btn').style.display = 'none';
+      } else {
+        document.getElementById('budget-setup-card').style.display = 'none';
+      }
+
+      // Hero Card
+      const hero = document.getElementById('hero-card');
+      hero.classList.remove('warn', 'danger');
+      const pctSpent = budget > 0 ? (totalSpent / budget) * 100 : 0;
+
+      if (remaining < 0 || pctSpent >= 85) {
+        hero.classList.add('danger');
+      } else if (pctSpent >= 65) {
+        hero.classList.add('warn');
+      }
+
+      document.getElementById('remaining-balance').textContent = formatIDR(remaining);
+      document.getElementById('hero-sub').textContent =
+        `Dari budget ${formatIDR(budget)} • Terpakai ${formatIDR(totalSpent)} (${Math.round(pctSpent)}%)`;
+      document.getElementById('hero-progress').style.width = `${Math.min(100, Math.max(0, pctSpent))}%`;
+
+      // Daily Safe-to-Spend & Actual Daily Spend
+      const safeDaily = cycleInfo.daysLeft > 0 ? Math.max(0, remaining) / cycleInfo.daysLeft : 0;
+      const actualDaily = cycleInfo.daysElapsed > 0 ? totalSpent / cycleInfo.daysElapsed : totalSpent;
+
+      document.getElementById('daily-safe').textContent = cycleInfo.daysLeft > 0 ? formatIDR(safeDaily) : 'Selesai';
+      document.getElementById('daily-actual').textContent = formatIDR(actualDaily);
+      document.getElementById('days-left').textContent = `${cycleInfo.daysLeft} Hari`;
+
+      renderAuditAlgorithm(budget, totalSpent, remaining, cycleExpenses, cycleInfo);
+      renderHistory(cycleExpenses);
+    }
+
+    function renderAuditAlgorithm(budget, totalSpent, remaining, cycleExpenses, cycleInfo) {
+      const summaryEl = document.getElementById('algo-summary');
+      const recEl = document.getElementById('algo-recommendations');
+      const catBreakEl = document.getElementById('category-breakdown');
+      const whoBreakEl = document.getElementById('who-breakdown');
+
+      if (cycleExpenses.length === 0) {
+        summaryEl.textContent = 'Belum ada transaksi di siklus ini. Setelah beberapa hari mencatat pengeluaran, algoritma akan otomatis mendeteksi kategori mana yang paling membebani jatah bulanan.';
+        recEl.innerHTML = '';
+        catBreakEl.innerHTML = '<div style="font-size:13px; color:var(--muted);">Belum ada data kategori.</div>';
+        whoBreakEl.innerHTML = '<div style="font-size:13px; color:var(--muted);">Belum ada data pemakaian.</div>';
+        return;
+      }
+
+      // Agregasi per kategori
+      const catStats = CATEGORIES.map(cat => {
+        const items = cycleExpenses.filter(e => e.category === cat.id);
+        const sum = items.reduce((s, e) => s + e.amount, 0);
+        const pctOfBudget = budget > 0 ? (sum / budget) * 100 : (totalSpent > 0 ? (sum / totalSpent) * 100 : 0);
+        const pctOfSpend = totalSpent > 0 ? (sum / totalSpent) * 100 : 0;
+        return { ...cat, sum, count: items.length, pctOfBudget, pctOfSpend };
+      }).filter(c => c.sum > 0).sort((a, b) => b.sum - a.sum);
+
+      // Hitung Skor Prioritas Pengurangan (Leak Score)
+      const candidates = [];
+      let nonEssentialTotal = 0;
+
+      catStats.forEach(c => {
+        if (!c.essential) nonEssentialTotal += c.sum;
+
+        let score = 0;
+        let reasons = [];
+        let cutPct = 0;
+
+        // Faktor 1: Kategori Gaya Hidup (Non-Esensial)
+        if (!c.essential) {
+          score += 35;
+          reasons.push('termasuk kategori gaya hidup (non-pokok)');
+        }
+
+        // Faktor 2: Melebihi batas porsi ideal terhadap budget
+        if (c.pctOfBudget > c.idealMaxPct) {
+          const excess = c.pctOfBudget - c.idealMaxPct;
+          score += excess * 2.2;
+          reasons.push(`memakan ${c.pctOfBudget.toFixed(0)}% budget (batas ideal ${c.idealMaxPct}%)`);
+        }
+
+        // Faktor 3: Frekuensi transaksi terlalu sering (Latte factor)
+        if (c.count >= 4 && !c.essential) {
+          score += c.count * 3;
+          reasons.push(`frekuensi sangat sering (${c.count}x transaksi)`);
+        }
+
+        // Faktor 4: Kondisi budget keseluruhan defisit / menipis
+        if (remaining < 0) {
+          score += 20;
+        }
+
+        if (!c.essential && (c.pctOfBudget > c.idealMaxPct || c.count >= 3 || remaining < 0)) {
+          cutPct = remaining < 0 ? 50 : (c.pctOfBudget > c.idealMaxPct * 1.4 ? 40 : 30);
+        } else if (c.essential && c.pctOfBudget > c.idealMaxPct * 1.25) {
+          cutPct = 20;
+        }
+
+        if (cutPct > 0) {
+          const potentialSave = Math.round((c.sum * cutPct) / 100);
+          candidates.push({
+            ...c,
+            score,
+            reasons,
+            cutPct,
+            potentialSave
+          });
+        }
+      });
+
+      candidates.sort((a, b) => b.score - a.score);
+
+      const nonEssentialPct = totalSpent > 0 ? Math.round((nonEssentialTotal / totalSpent) * 100) : 0;
+      const totalPotentialSave = candidates.reduce((s, c) => s + c.potentialSave, 0);
+
+      if (candidates.length > 0) {
+        summaryEl.innerHTML = `Dari total terpakai <strong>${formatIDR(totalSpent)}</strong>, sebesar <strong>${nonEssentialPct}% (${formatIDR(nonEssentialTotal)})</strong> masuk ke kategori gaya hidup. Dengan memangkas pos di bawah ini, kamu berdua bisa menghemat sekitar <strong style="color:#34D399;">${formatIDR(totalPotentialSave)}</strong> di siklus berikutnya:`;
+
+        recEl.innerHTML = candidates.slice(0, 3).map((item, idx) => {
+          const isHigh = idx === 0 || item.score >= 55;
+          return `
+            <div class="algo-item ${isHigh ? 'high' : ''}">
+              <span class="algo-badge ${isHigh ? 'badge-high' : 'badge-med'}">
+                ${isHigh ? '🔥 Prioritas Utama Dikurangi' : '⚠️ Perlu Dibatasi'}
+              </span>
+              <div style="font-size:14.5px; font-weight:800; margin-bottom:4px;">
+                ${idx + 1}. ${item.emoji} ${item.name} — Total ${formatIDR(item.sum)}
+              </div>
+              <div style="font-size:12px; color:#CBD5E1; line-height:1.45; margin-bottom:6px;">
+                Alasan: ${item.reasons.join(', ')}.
+              </div>
+              <div style="font-size:12px; color:#6EE7B7; font-weight:700;">
+                💡 Target bulan depan: Kurangi ${item.cutPct}% → Hemat ${formatIDR(item.potentialSave)}
+              </div>
+              <div style="font-size:11.5px; color:#94A3B8; margin-top:3px;">
+                Saran praktis: ${item.tip}
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        summaryEl.innerHTML = `Pola pengeluaran siklus <strong>${cycleInfo.shortLabel}</strong> tergolong sehat! Mayoritas dana dipakai untuk kebutuhan pokok (${100 - nonEssentialPct}%).`;
+        recEl.innerHTML = `
+          <div class="algo-item good">
+            <span class="algo-badge badge-good">✅ Pengelolaan Sehat</span>
+            <div style="font-size:13.5px; font-weight:700; margin-bottom:3px;">Tidak ada kebocoran besar terdeteksi</div>
+            <div style="font-size:12px; color:#CBD5E1;">Pertahankan ritme pengeluaran ini sampai tanggal 25 berikutnya.</div>
+          </div>
+        `;
+      }
+
+      // Render Rincian per Kategori
+      catBreakEl.innerHTML = catStats.map(c => `
+        <div class="cat-row">
+          <div class="cat-row-top">
+            <span style="font-weight:700;">${c.emoji} ${c.name} <span style="color:var(--muted); font-weight:500;">(${c.count}x)</span></span>
+            <span style="font-weight:700;">${formatIDR(c.sum)} <span style="color:var(--muted); font-size:11px;">(${c.pctOfSpend.toFixed(0)}%)</span></span>
+          </div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width:${Math.min(100, c.pctOfSpend)}%; background:${c.color};"></div>
+          </div>
+        </div>
+      `).join('');
+
+      // Render Pembagian Suami / Istri / Berdua
+      const whoGroups = ['Berdua', 'Suami', 'Istri'].map(w => {
+        const sum = cycleExpenses.filter(e => e.who === w).reduce((s, e) => s + e.amount, 0);
+        const pct = totalSpent > 0 ? (sum / totalSpent) * 100 : 0;
+        const emoji = w === 'Berdua' ? '👫' : (w === 'Suami' ? '👨' : '👩');
+        const color = w === 'Berdua' ? '#06B6D4' : (w === 'Suami' ? '#6366F1' : '#EC4899');
+        return { name: w, sum, pct, emoji, color };
+      }).filter(w => w.sum > 0);
+
+      whoBreakEl.innerHTML = whoGroups.map(w => `
+        <div class="cat-row">
+          <div class="cat-row-top">
+            <span style="font-weight:700;">${w.emoji} ${w.name}</span>
+            <span style="font-weight:700;">${formatIDR(w.sum)} <span style="color:var(--muted); font-size:11px;">(${w.pct.toFixed(0)}%)</span></span>
+          </div>
+          <div class="bar-bg">
+            <div class="bar-fill" style="width:${Math.min(100, w.pct)}%; background:${w.color};"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderHistory(cycleExpenses) {
+      const filter = document.getElementById('filter-cat').value;
+      const listEl = document.getElementById('history-list');
+      const filtered = filter === 'ALL' ? cycleExpenses : cycleExpenses.filter(e => e.category === filter);
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:13px; padding:14px 0;">Belum ada catatan pengeluaran di siklus ini.</div>';
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(e => {
+        const cat = CATEGORIES.find(c => c.id === e.category) || CATEGORIES[7];
+        return `
+          <div class="history-item">
+            <div>
+              <div style="font-weight:700; font-size:14px;">
+                ${cat.emoji} ${cat.name} — <span style="color:#FDA4AF;">-${formatIDR(e.amount)}</span>
+              </div>
+              <div style="font-size:11.5px; color:var(--muted); margin-top:3px;">
+                ${e.date} • ${e.who}${e.note ? ` • ${e.note}` : ''}
+              </div>
+            </div>
+            <button class="del-btn" onclick="deleteExpense('${e.id}')">Hapus</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 5. BACKUP & RESTORE
+    function exportBackup() {
+      const payload = {
+        app: 'Nesdavaysya Budget Berdua',
+        exportedAt: new Date().toISOString(),
+        state
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `budget-berdua-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Backup JSON berhasil diunduh!');
+    }
+
+    function importBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          const importedState = parsed.state || parsed;
+          if (!importedState || !Array.isArray(importedState.expenses)) throw new Error('Format tidak valid');
+          if (!confirm(`Pulihkan ${importedState.expenses.length} catatan pengeluaran dari backup?`)) return;
+          state = importedState;
+          await saveVault();
+          renderAll();
+          showToast('Data berhasil dipulihkan!');
+        } catch (err) {
+          alert('File backup tidak valid.');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    // INIT
+    window.addEventListener('DOMContentLoaded', async () => {
+      generateAppIcons();
+      renderCategoryButtons();
+      document.getElementById('input-date').value = new Date().toISOString().split('T')[0];
+      if (navigator.storage && navigator.storage.persist) {
+        navigator.storage.persist();
+      }
+      await loadVault();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
