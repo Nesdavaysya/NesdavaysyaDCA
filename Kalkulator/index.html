@@ -245,14 +245,24 @@
 
     .input-box {
       width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      min-height: 48px;
       background: rgba(15, 23, 42, 0.72);
       border: 1px solid var(--border-strong);
       border-radius: 14px;
-      padding: 13px 14px;
+      padding: 12px 14px;
       color: var(--text);
       font-size: 16px;
       font-weight: 600;
       outline: none;
+      display: block;
+    }
+
+    input[type="date"].input-box {
+      -webkit-appearance: none;
+      appearance: none;
+      text-align: left;
     }
 
     .input-box:focus {
@@ -692,15 +702,14 @@
           </div>
         </div>
 
-        <div class="form-group" style="display:grid; grid-template-columns: 1fr 1.2fr; gap:8px;">
-          <div>
-            <label class="form-label">Tanggal</label>
-            <input type="date" id="input-date" class="input-box" style="font-size:14px; padding:11px 10px;" />
-          </div>
-          <div>
-            <label class="form-label">Keterangan</label>
-            <input type="text" id="input-note" class="input-box" style="font-size:14px; padding:11px 12px;" placeholder="Makan malam / kopi" />
-          </div>
+        <div class="form-group">
+          <label class="form-label">Tanggal</label>
+          <input type="date" id="input-date" class="input-box" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Keterangan (Opsional)</label>
+          <input type="text" id="input-note" class="input-box" placeholder="Contoh: Makan malam / kopi" />
         </div>
 
         <button class="btn-primary" onclick="addExpense()">− Potong Saldo Sekarang</button>
@@ -805,7 +814,7 @@
     function getCycleIdFromDate(dateStr) {
       const parts = dateStr.split('-').map(Number);
       const y = parts[0];
-      const m = parts[1] - 1; // 0-indexed
+      const m = parts[1] - 1;
       const d = parts[2];
 
       let startYear = y;
@@ -1168,26 +1177,22 @@
         let reasons = [];
         let cutPct = 0;
 
-        // Faktor 1: Kategori Gaya Hidup (Non-Esensial)
         if (!c.essential) {
           score += 35;
           reasons.push('termasuk kategori gaya hidup (non-pokok)');
         }
 
-        // Faktor 2: Melebihi batas porsi ideal terhadap budget
         if (c.pctOfBudget > c.idealMaxPct) {
           const excess = c.pctOfBudget - c.idealMaxPct;
           score += excess * 2.2;
           reasons.push(`memakan ${c.pctOfBudget.toFixed(0)}% budget (batas ideal ${c.idealMaxPct}%)`);
         }
 
-        // Faktor 3: Frekuensi transaksi terlalu sering (Latte factor)
         if (c.count >= 4 && !c.essential) {
           score += c.count * 3;
           reasons.push(`frekuensi sangat sering (${c.count}x transaksi)`);
         }
 
-        // Faktor 4: Kondisi budget keseluruhan defisit / menipis
         if (remaining < 0) {
           score += 20;
         }
@@ -1287,9 +1292,10 @@
     }
 
     function renderHistory(cycleExpenses) {
+      const listData = cycleExpenses || state.expenses.filter(e => e.cycleId === selectedCycleId);
       const filter = document.getElementById('filter-cat').value;
       const listEl = document.getElementById('history-list');
-      const filtered = filter === 'ALL' ? cycleExpenses : cycleExpenses.filter(e => e.category === filter);
+      const filtered = filter === 'ALL' ? listData : listData.filter(e => e.category === filter);
 
       if (filtered.length === 0) {
         listEl.innerHTML = '<div style="text-align:center; color:var(--muted); font-size:13px; padding:14px 0;">Belum ada catatan pengeluaran di siklus ini.</div>';
